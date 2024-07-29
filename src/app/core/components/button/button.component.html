@@ -1,0 +1,10 @@
+<button
+  mat-button
+  (click)="clickButton()"
+  [class]="className"
+  [disabled]="disabled"
+>
+  <div class="flex justify-center items-center">
+    <ng-content></ng-content>
+  </div>
+</button>

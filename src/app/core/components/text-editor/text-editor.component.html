@@ -1,0 +1,48 @@
+<span *ngIf="label" class="text-base text-gray-800">
+  {{ label }}
+  <span *ngIf="required"> * </span>
+</span>
+
+<angular-editor
+  *ngIf="!isEditing && control !== undefined"
+  [formControl]="control"
+  [config]="editorConfigDisabled"
+  class="angular-editor-disabled"
+  ngDefaultControl
+  name="name"
+>
+</angular-editor>
+
+<angular-editor
+  *ngIf="!isEditing && control === undefined"
+  [(ngModel)]="value"
+  [config]="editorConfigDisabled"
+  class="angular-editor-disabled"
+  ngDefaultControl
+  name="name"
+>
+</angular-editor>
+
+<angular-editor
+  *ngIf="isEditing && control !== undefined"
+  [formControl]="control"
+  [config]="editorConfig"
+  ngDefaultControl
+  name="name"
+>
+</angular-editor>
+
+<angular-editor
+  *ngIf="isEditing && control === undefined"
+  [(ngModel)]="value"
+  [config]="editorConfig"
+  ngDefaultControl
+  name="name"
+>
+</angular-editor>
+
+<div *ngIf="isEditing && control">
+  <span *ngIf="control.invalid" class="text-sm text-red-600">
+    {{ getMessageError() }}
+  </span>
+</div>

@@ -1,0 +1,23 @@
+<mat-menu
+  #popover="matMenu"
+  [xPosition]="xPosition"
+  [yPosition]="yPosition"
+  class="bg-card rounded-2xl shadow overflow-hidden my-2 px-2 soho-popover"
+  [class]="extraClass"
+>
+  <ng-template matMenuContent>
+    <span>
+      <button
+        mat-menu-item
+        disableRipple
+        (click)="$event.stopPropagation()"
+        class="mat-menu-content"
+      >
+        <ng-container *ngTemplateOutlet="popoverContent"></ng-container>
+      </button>
+    </span>
+  </ng-template>
+</mat-menu>
+<div [matMenuTriggerFor]="popover" style="cursor: pointer">
+  <ng-content></ng-content>
+</div>

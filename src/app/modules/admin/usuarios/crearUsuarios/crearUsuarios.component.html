@@ -1,0 +1,182 @@
+<div style="
+max-height: calc(100vh - 20vh);
+">
+    <form class="modal-box" method="dialog">
+        <div class="grid grid-cols-2 gap-2" style="padding: 24px;">
+            <div style="font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 28px;"> {{title}} Usuario
+            </div>
+            <div style="padding-left: 95%">
+                <button (click)="onNoClick()" class=" bg-white text-black btn-sm btn-circle btn-ghost absolute ">
+                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM15.36 14.3C15.65 14.59 15.65 15.07 15.36 15.36C15.21 15.51 15.02 15.58 14.83 15.58C14.64 15.58 14.45 15.51 14.3 15.36L12 13.06L9.7 15.36C9.55 15.51 9.36 15.58 9.17 15.58C8.98 15.58 8.79 15.51 8.64 15.36C8.35 15.07 8.35 14.59 8.64 14.3L10.94 12L8.64 9.7C8.35 9.41 8.35 8.93 8.64 8.64C8.93 8.35 9.41 8.35 9.7 8.64L12 10.94L14.3 8.64C14.59 8.35 15.07 8.35 15.36 8.64C15.65 8.93 15.65 9.41 15.36 9.7L13.06 12L15.36 14.3Z"
+                            fill="#1B1B1D" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <mat-form-field class="example-full-width px-[24px]" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" matInput placeholder="Ex. Marco Perez"
+                maxLength="50"
+                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                onkeypress="return ' QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóúabcdefghijklmnñopqrstuvwxyz'.includes(event.key)"
+                required>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width px-[24px]" style="width: 100%;" *ngIf="title === 'Editar'">
+            <mat-label>Usuario</mat-label>
+            <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" matInput placeholder="Ex. MarcoPerez"
+                type="text" maxlength="30" disabled
+                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                onkeypress="return ' QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóúabcdefghijklmnñopqrstuvwxyz'.includes(event.key)"
+                required>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width px-[24px]" style="width: 100%;" *ngIf="title !== 'Editar'">
+            <mat-label style="color: #1e293b">Usuario</mat-label>
+            <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" matInput style="color: #1e293b"
+                placeholder="Ex. MarcoPerez" type="text" maxlength="30"
+                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                onkeypress="return ' QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóúabcdefghijklmnñopqrstuvwxyz'.includes(event.key)"
+                required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width px-[24px]" style="width: 100%;">
+            <mat-label>Email</mat-label>
+            <input [(ngModel)]="mail" type="email" [ngModelOptions]="{standalone: true}" matInput
+                placeholder="Ex. test@gmail.com" maxLength="350"
+                pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                autofocus title="El email ingresado no es correcto" required>
+
+        </mat-form-field>
+
+        <mat-label class="px-[24px]">Rol *</mat-label>
+        <div class="ng-autocomplete example-full-width px-[24px]">
+            <ng-autocomplete [data]="rol" [searchKeyword]="keyword"
+                [placeholder]="tipo.role? tipo.role: 'Seleccione su rol'" (selected)='selectEvent($event)'
+                (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.role"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+        </div>
+
+
+        <!-- <mat-form-field class="example-full-width px-[24px]" style="width: 100%;">
+
+             <select (change)="getSelectedValue($event)" [value]="tipo" matNativeControl required>
+                 <option *ngFor="let title of rol"
+                         [value]="title._id">
+                     {{title.role}}
+                 </option>
+             </select>
+         </mat-form-field> -->
+
+
+        <div
+            class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+            style="padding-left: 0px !important; padding-right: 0px !important;height: fit-content;">
+            <form [formGroup]="crearProgramaFormGroup">
+
+                <div class="flex flex-col px-[10px] mt-2">
+
+                    <div
+                        class="sm:col-span-2 md:col-span-2 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden">
+
+
+                        <div class="grid sm:grid-cols-2 gap-6 w-full ">
+                            <div class="grid-cols-2 sm:grid-cols2 gap-6 w-full ">
+                                <div
+                                    class="sm:col-span-1 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                                    style="padding-left: 0px !important; padding-right: 0px !important;height: 400px;">
+                                    <div class="flex flex-col px-[10px] mt-2" style="
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 100%;
+                                        ">
+
+                                        <label>Imagen Web</label>
+                                        <div class="drag-drop">
+                                            <input (change)="selectFile($event)"
+                                                   accept="image/*" id="photo"
+                                                   multiple="multiple"
+                                                   type="file"/>
+                                            <span class="fa-stack fa-2x" style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    flex-wrap: nowrap;
+                                                    align-content: center;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                ">
+                                    <mat-icon [svgIcon]="'heroicons_outline:cloud'" class=" bottom" matPrefix style="    position: absolute;width: 3rem !important;
+                                                            height: 3rem !important;"></mat-icon>
+                                    <mat-icon [svgIcon]="'heroicons_outline:arrow-up-circle'" class="icon-size-5 medium"
+                                              matPrefix></mat-icon>
+                                </span>
+                                            <span class="desc">Pulse aquí para añadir archivos</span>
+                                            <span class="desc ">Máximo 5mb</span>
+                                        </div>
+
+                                        <div>
+                                            <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"[src]="preview" class="preview">
+                                        </div>
+
+                                        <div *ngIf="currentFile && progress"
+                                             class="progress my-3">
+                                            <div [ngStyle]="{ width: progress + '%' }"
+                                                 aria-valuemax="100" aria-valuemin="0"
+                                                 attr.aria-valuenow="{{ progress }}"
+                                                 class="progress-bar progress-bar-info"
+                                                 role="progressbar">
+                                                {{ progress }}%
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+
+
+        <mat-checkbox (change)="checkCheckBoxvalue($event)" [checked]="estado" class="example-full-width px-[24px]"
+            required>
+            <mat-label *ngIf="estado === true" class="example-full-width px-[24px]">Estado Activo</mat-label>
+            <mat-label *ngIf="estado === false" class="example-full-width px-[24px]}">Estado Desactivado</mat-label>
+        </mat-checkbox>
+
+
+        <div class="grid grid-cols-1 gap-2 py-[16px] px-[24px]">
+            <div>
+                <button (click)="guardarRegion()" class="btn4 bg-white text-black dark:text-black "
+                    style="width: 100%; text-align: end;">{{botton}}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

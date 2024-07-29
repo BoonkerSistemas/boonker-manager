@@ -1,0 +1,126 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Pedidos</div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64" style="width: 100%;">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput (keyup)="applyFilter($event)" [autocomplete]="'on'" [placeholder]="'Buscar Pedido'"
+                    #input>
+            </mat-form-field>
+            <!-- Add product button -->
+            <!--<button class="ml-4" mat-flat-button [color]="'primary'" (click)="createProduct()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Añadir</span>
+            </button>-->
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden" style="overflow: auto !important;">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+            style="overflow: auto !important;">
+
+            <!---desde aquiiiii-->
+
+
+            <div class=" mat-elevation-z8">
+                <table mat-table [dataSource]="pedidos$" class=" example-container mat-elevation-z8" matSort
+                    style="width: 100%;">
+                    <!--- Note that these columns can be defined in any order.
+         The actual rendered columns are set as a property on the row definition" -->
+
+
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="n">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>N°</th>
+                        <td mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cliente">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CLIENTE</th>
+                        <td mat-cell *matCellDef="let element"> {{element.detallesPedido.client }} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="proyecto">
+                        <th mat-header-cell *matHeaderCellDef> PROYECTO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.detallesPedido.proyecto}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modulo">
+                        <th mat-header-cell *matHeaderCellDef> MODULO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.detallesPedido.moduloConstruccion}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="peso">
+                        <th mat-header-cell *matHeaderCellDef> TOTAL PESO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.seccion.totalPeso}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pedido">
+                        <th mat-header-cell *matHeaderCellDef> TOTAL PEDIDO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.seccion.totalPedido}}
+                        </td>
+                    </ng-container>
+                    <!--<ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef> ESTATUS</th>
+                        <td mat-cell *matCellDef="let element"> {{element.state}}
+                        </td>
+                    </ng-container>-->
+
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                        <td mat-cell *matCellDef="let element">
+                            <!--<button mat-icon-button (click)="openProyectDialog(element.id)" tooltip="Editar">
+                                <mat-icon [svgIcon]="'heroicons_solid:pencil'" [color]="'primary'"></mat-icon>
+                            </button>-->
+                            <!--<button mat-icon-button routerLink="/despachos" tooltip="Despachos">
+                                <mat-icon [svgIcon]="'heroicons_solid:arrow-up'" [color]="'secondary'"></mat-icon>
+                            </button>-->
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[ 5,10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+
+            <div class="grid" id="second">
+                <ng-container *ngIf="selectedPedidos?.id ">
+                    <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: product}">
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <ng-template #noProducts>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No tienes Productos!
+                </div>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</div>

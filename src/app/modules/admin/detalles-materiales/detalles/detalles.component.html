@@ -1,0 +1,304 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6"
+    style="/* height: 90vh !important; */width: 100vh !important;display: flex;flex-direction: column;flex-wrap: nowrap;align-content: center;justify-content: flex-start;margin: 0px !important;align-items: center;">
+
+    <ng-container *ngIf="(pedido$ | async) as pedido">
+        <div class="m-4" style=" margin-top: 0px !important;    width: 90% !important;">
+
+            <!--SEGUNDA PARTE-->
+            <div class="grid sm:grid-cols-6 gap-6 w-full mt-8"
+                style="padding: 50px;border-radius: 6px; margin-top: 0px !important;    gap: 0.5rem !important;">
+
+                <div class="sm:col-span-6 text-2xl font-extrabold tracking-tight text-center"
+                    style="background: rgb(0, 0, 0);color: white;">
+                    <p>ORDEN DE PEDIDO # {{pedido.id}}</p>
+                    <p>Cliente: # {{pedido.cliente}}</p>
+                    <p>PROYECTO: <span>{{pedido.proyecto}}</span></p>
+                    <p>FECHA INICIO: {{pedido.startDate | date}} </p>
+                    <div style="
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    justify-content: flex-end;
+                    align-items: center;
+                ">
+                        <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                            (click)="addNewDespacho()" style="background: #00ffff00;color: #ffffff;">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="hidden sm:inline-block ml-2">GENERAR DESPACHO</span>
+                        </button>
+                    </div>
+
+                </div>
+
+
+
+
+                <table mat-table [dataSource]="seccion2$" class=" sm:col-span-6 example-container mat-elevation-z8"
+                    matSort style="width: 100%;">
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>DETALLE</th>
+                        <td mat-cell *matCellDef="let element"> {{element.name }} </td>
+                    </ng-container>
+
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="porcentaje">
+                        <th mat-header-cell *matHeaderCellDef> UNIDAD</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div id="contenedor">
+                                <div id="principal">
+                                    <p>{{element.unidades }}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="unidades">
+                        <th mat-header-cell *matHeaderCellDef>CANTIDAD</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div id="contenedor">
+                                <div id="principal">
+                                    <p>{{element.total|  currency: 'USD' | lowercase }}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="valor">
+                        <th mat-header-cell *matHeaderCellDef>PRECIO UNITARIO</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div id="contenedor">
+                                <div id="principal">
+                                    <p>{{element.fechaDespacho | date:'shortDate'}}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef>TOTAL</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div id="contenedor">
+                                <div id="principal">
+                                    <p>{{element.fechaDespacho | date:'shortDate'}}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step>
+                    <ng-template matStepLabel>DESPACHO SELECCIONADO</ng-template>
+                    <div class="divDespachos" *ngIf="seccion3$">
+                        <!--<button mat-button matStepperNext>Next</button>-->
+                        <table mat-table [dataSource]="seccion3$"
+                            class=" sm:col-span-6 example-container mat-elevation-z8" matSort style="width: 100%;">
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #b2fd59!important;
+                        ">MATERIAL SELECCIONADO</th>
+                                <td mat-cell *matCellDef="let element"> {{element.name }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="descripcion">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #b2fd59!important;
+                        "> CANTIDAD</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.cantidad | number : '1.2-2' }}</p>
+                                        </div>
+
+                                    </div>
+
+
+                                </td>
+                            </ng-container>
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="porcentaje">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #b2fd59!important;
+                        "> UNIDAD DE DESPACHO</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.unidades }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #b2fd59!important;
+                        "> VALOR</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.total | currency: "USD"}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="unidades">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #b2fd59!important;
+                        "> FECHA DESPACHO</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.fechaDespacho1 | date:'shortDate'}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                        </table>
+                        <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'" style="background: #1300ff;
+                        color: #fdfdfd; margin: 15px !important;" *ngIf="this.usuarioLogueado.role === 'Cliente'">
+                            <a href="https://form.jotform.com/232950999885076" target="_blank" style="
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        align-content: center;
+                        justify-content: center;
+                        align-items: center;
+                    ">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                                <span class="hidden sm:inline-block ml-2">PAGAR</span>
+                            </a>
+
+                        </button>
+                        <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'" style="background: #1300ff;
+                        color: #fdfdfd; margin: 15px !important;" *ngIf="this.usuarioLogueado.role !== 'Cliente'"
+                            (click)="aprobar()">
+                            <a target="_blank" style="
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        align-content: center;
+                        justify-content: center;
+                        align-items: center;
+                    ">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                                <span class="hidden sm:inline-block ml-2">Generar Despacho</span>
+                            </a>
+
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <ng-template matStepLabel>POR GENERAR DESPACHO</ng-template>
+                    <div class="divDespachos" *ngIf="seccion4$">
+
+                        <table mat-table [dataSource]="seccion4$"
+                            class=" sm:col-span-6 example-container mat-elevation-z8" matSort style="width: 100%;">
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #fd5959 !important;
+                        ">RUBRO</th>
+                                <td mat-cell *matCellDef="let element"> {{element.name }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="descripcion">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #fd5959 !important;
+                        "> CANTIDAD</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.cantidad | number : '1.2-2' }}</p>
+                                        </div>
+                                        <div id="sidebar">
+                                            <p>$ {{element.cantidadCosto | number : '1.2-2' }}</p>
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                            </ng-container>
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="porcentaje">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #fd5959 !important;
+                        "> DESPACHO</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.unidades }}</p>
+                                        </div>
+                                        <div id="sidebar">
+                                            <p>$ {{element.unidadesCosto }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="unidades">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #fd5959 !important;
+                        "> FECHA DESPACHO</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.fechaDespacho1 | date:'shortDate'}}</p>
+                                        </div>
+                                        <div id="sidebar">
+                                            <p>{{element.fechaDespacho2 | date:'shortDate'}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef style="
+                            background: #fd5959 !important;
+                        "> FECHA DESPACHO</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div id="contenedor">
+                                        <div id="principal">
+                                            <p>{{element.fechaDespacho1 | date:'shortDate'}}</p>
+                                        </div>
+                                        <div id="sidebar">
+                                            <p>{{element.fechaDespacho2 | date:'shortDate'}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+                        </table>
+                    </div>
+                    <button mat-button matStepperPrevious>Anterior</button>
+                </mat-step>
+
+
+            </mat-stepper>
+
+
+            <!--FIN TABLESSS-->
+        </div>
+    </ng-container>
+
+
+
+</div>

@@ -1,0 +1,72 @@
+<div class="flex flex-row justify-between">
+  <span *ngIf="label" class="text-base text-gray-800">
+    {{ label }}
+    <span *ngIf="required"> * </span>
+  </span>
+
+  <mat-icon
+    *ngIf="typeView !== 'onlyView'"
+    [matTooltip]="tooltip"
+    [matTooltipPosition]="'below'"
+    svgIcon="heroicons_solid:question-mark-circle"
+  ></mat-icon>
+</div>
+
+<md-editor
+  *ngIf="typeView !== 'onlyView'"
+  name="Content"
+  [(ngModel)]="content"
+  [height]="'400px'"
+  required
+  maxlength="2000"
+  (ngModelChange)="onChange($event)"
+  (onEditorLoaded)="onEditorLoaded($event)"
+  [preRender]="preRender"
+  [postRender]="postRender"
+  (onPreviewDomChanged)="onPreviewDomChanged($event)"
+  class="markdown-viewer"
+  [options]="options"
+>
+  <slot custom-btns class="h-full">
+    <a
+      [href]="'https://jfcere.github.io/ngx-markdown/cheat-sheet'"
+      [target]="'black'"
+      class="justify-center items-center flex py-[2.5px]"
+    >
+      <mat-icon svgIcon="heroicons_solid:information-circle"></mat-icon>
+    </a>
+  </slot>
+</md-editor>
+
+<div
+  *ngIf="typeView === 'onlyView'"
+  class="flex flex-col lg:flex-row justify-between gap-3"
+>
+  <!--<div-->
+  <!--class="flex flex-1 border rounded-md"-->
+  <!--*ngIf="typeView === 'viewAndEdit' || typeView === 'onlyEdit'"-->
+  <!-->-->
+  <!--<textarea-->
+  <!--[rows]="7"-->
+  <!--class="variable-textarea w-full"-->
+  <!--[formControl]="data"-->
+  <!--(ngModelChange)="onChange($event)"-->
+  <!--></textarea>-->
+  <!--</div>-->
+
+  <div class="flex flex-1 'border bg-gray-100">
+    <markdown
+      [data]="value || data.value"
+      lineHighlight
+      ngPreserveWhitespaces
+      class="markdown-viewer w-full"
+    >
+    </markdown>
+  </div>
+</div>
+
+<div *ngIf="typeView === 'viewAndEdit' || (typeView === 'onlyEdit' && data)">
+  <span *ngIf="data.invalid" class="text-sm text-red-600">
+    {{ getMessageError() }}
+  </span>
+</div>

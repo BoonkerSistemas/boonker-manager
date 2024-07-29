@@ -1,0 +1,14 @@
+::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: black;
+}
+
+.swal2-container.swal2-center {
+  align-items: center;
+  position: absolute;
+  z-index: 9999999 !important;
+}

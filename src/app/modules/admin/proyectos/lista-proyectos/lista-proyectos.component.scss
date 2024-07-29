@@ -1,0 +1,194 @@
+.inventory-grid {
+    grid-template-columns: 48px auto 40px;
+  
+    @screen sm {
+      grid-template-columns: 48px auto 112px 72px;
+    }
+  
+    @screen md {
+      grid-template-columns: 48px 112px auto 112px 72px;
+    }
+  
+    /* @screen lg {
+      grid-template-columns: 48px 100px 48px 48px 96px 96px 72px 48px 48px 48px 48px;
+    }*/
+  
+    @screen lg {
+      grid-template-columns: 48px 100px 300px 102px 96px 96px 100px 100px 100px 100px 100px;
+    }
+  }
+
+  .mat-mdc-paginator .mat-mdc-paginator-container {
+    justify-content: center !important;
+}
+
+/*Desde Aqui*/
+#contenedor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#principal {
+  width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+}
+#sidebar {
+  width: 50%;
+  
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+}
+.container {  display: grid;
+  //grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  /*grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;*/
+  grid-template-areas:
+    "Cliente Proyecto CodigoModulo M2 Ubicacion Estado Nuevo"
+    "DataCliente DataProyecto DataCodigo DataM2 DataUbicacion DataEstado DataNuevo"
+    "Borde Borde Borde Borde Borde Borde Borde";
+}
+
+.Cliente { grid-area: Cliente; 
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.Proyecto { grid-area: Proyecto; 
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.M2 { grid-area: M2; 
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.CodigoModulo{ grid-area: CodigoModulo; 
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.Ubicacion { grid-area: Ubicacion; 
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.Estado { grid-area: Estado;border: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center; }
+
+  .Nuevo { grid-area: Nuevo;border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center; }
+
+.Borde { grid-area: Borde;border: 2px solid; }
+
+.DataCliente { grid-area: DataCliente; 
+  border-left: 2px solid;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.DataProyecto { grid-area: DataProyecto;    border-left: 2px solid; padding: 10px; }
+
+.DataM2 { grid-area: DataM2;    border-left: 2px solid;     display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.DataCodigo { grid-area: DataCodigo;    border-left: 2px solid;    display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center; }
+
+.DataUbicacion { grid-area: DataUbicacion;     border-left: 2px solid;     display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+.DataEstado { grid-area: DataEstado;     border-left: 2px solid;    border-right: 2px solid;     display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;}
+
+  .DataNuevo{ grid-area: DataNuevo;     border-left: 2px solid;    border-right: 2px solid;     display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;}
+
+
+ .container {
+  padding: 1%;
+  width: 100%;
+}
+
+/*.container * {
+  border: 1px solid rgb(0, 0, 0);
+  position: relative;
+}*/
+
+

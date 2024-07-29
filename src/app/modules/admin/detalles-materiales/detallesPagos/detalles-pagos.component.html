@@ -1,0 +1,71 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6" style="
+/*height: 90vh !important;*/
+width: 50% !important;
+">
+    <div class="text-2xl font-extrabold tracking-tight text-center" style="
+    padding: 20px 10px 0px 10px;
+">
+        Subir Pago
+    </div>
+
+    <div style="padding-left: 95%">
+        <button (click)="onNoClick()" class=" bg-white text-black btn-sm btn-circle btn-ghost absolute ">
+            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM15.36 14.3C15.65 14.59 15.65 15.07 15.36 15.36C15.21 15.51 15.02 15.58 14.83 15.58C14.64 15.58 14.45 15.51 14.3 15.36L12 13.06L9.7 15.36C9.55 15.51 9.36 15.58 9.17 15.58C8.98 15.58 8.79 15.51 8.64 15.36C8.35 15.07 8.35 14.59 8.64 14.3L10.94 12L8.64 9.7C8.35 9.41 8.35 8.93 8.64 8.64C8.93 8.35 9.41 8.35 9.7 8.64L12 10.94L14.3 8.64C14.59 8.35 15.07 8.35 15.36 8.64C15.65 8.93 15.65 9.41 15.36 9.7L13.06 12L15.36 14.3Z"
+                    fill="#1B1B1D" />
+            </svg>
+        </button>
+    </div>
+    <div
+        class="sm:col-span-1 md:col-span-1 lg:col-span-1 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+        style="padding-left: 0px !important; padding-right: 0px !important;height: 400px;">
+        <div class=" px-[10px] mt-2" style="
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 100%;
+                                        ">
+
+            <label>Archivo</label>
+            <div class="drag-drop">
+                <input (change)="selectFile($event)"
+                       id="photo"
+                       multiple="multiple"
+                       type="file"/>
+                <span class="fa-stack fa-2x" style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    flex-wrap: nowrap;
+                                                    align-content: center;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                ">
+                                    <mat-icon [svgIcon]="'heroicons_outline:cloud'" class=" bottom" matPrefix style="    position: absolute;width: 3rem !important;
+                                                            height: 3rem !important;"></mat-icon>
+                                    <mat-icon [svgIcon]="'heroicons_outline:arrow-up-circle'" class="icon-size-5 medium"
+                                              matPrefix></mat-icon>
+                                </span>
+                <span class="desc">Pulse aquí para añadir archivos</span>
+                <span class="desc ">Máximo 5mb</span>
+            </div>
+
+            <div>
+                <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"[src]="preview" class="preview">
+            </div>
+
+            <div *ngIf="currentFile && progress"
+                 class="progress my-3">
+                <div [ngStyle]="{ width: progress + '%' }"
+                     aria-valuemax="100" aria-valuemin="0"
+                     attr.aria-valuenow="{{ progress }}"
+                     class="progress-bar progress-bar-info"
+                     role="progressbar">
+                    {{ progress }}%
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="w-full max-w-3xl">
+    <!-- Items list -->
+    Detectamos {{items.files.length}} archivos cargados en este módulo
+    <ng-container *ngIf="items && (items.folders.length > 0 || items.files.length > 0); else noItems">
+        <div class="p-6 md:p-8 space-y-8">
+
+
+            <!-- Files -->
+            <ng-container *ngIf="items.files.length > 0">
+                <div>
+                    <div class="font-medium">ARCHIVOS</div>
+                    <div class="flex flex-wrap -m-2 mt-2">
+                        <ng-container *ngFor="let file of items.files; ">
+                            <a class="flex flex-col w-70 h-70 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card" (click)="visualizerPdf(file)">
+                                <div class="aspect-[9/6]">
+                                    <div class="flex items-center justify-center h-full">
+                                        <!-- Icons -->
+                                        <div class="relative">
+                                            <mat-icon class="icon-size-14 text-hint opacity-50"
+                                                      [svgIcon]="'heroicons_solid:document'"></mat-icon>
+                                            <div class="absolute left-0 bottom-0 px-1.5 rounded text-sm font-semibold leading-5 text-white"
+                                                 [class.bg-red-600]="file.type.toUpperCase() === 'PDF'"
+                                                 [class.bg-blue-600]="file.type.toUpperCase() === 'DOC'"
+                                                 [class.bg-green-600]="file.type.toUpperCase() === 'XLS'"
+                                                 [class.bg-gray-600]="file.type.toUpperCase() === 'TXT'"
+                                                 [class.bg-amber-600]="file.type.toUpperCase() === 'JPG'">
+                                                {{file.type.toUpperCase()}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col flex-auto justify-center text-center text-sm font-medium">
+                                    <div class="truncate" [matTooltip]="file.name">{{file.name}}</div>
+                                    <ng-container *ngIf="file.contents">
+                                        <div class="text-secondary truncate">{{file.contents}}</div>
+                                    </ng-container>
+
+                                    <button
+                                        class="fuse-mat-button-large w-full mt-6"
+                                        mat-flat-button
+                                        [color]="'primary'"
+
+                                        (click)="download(file)">
+                    <span>
+                       Descargar
+                    </span>
+
+                                    </button>
+                                </div>
+                            </a>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <!-- No items template -->
+    <ng-template #noItems>
+        <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+            <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:folder-open'"></mat-icon>
+            <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">¡No hay items!</div>
+        </div>
+    </ng-template>
+
+    <pdf-viewer *ngIf="pdfSrc"  [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="false"
+                style="width: 100%; height: 500px"
+    ></pdf-viewer>
+
+</div>

@@ -1,0 +1,164 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6" style="
+/*height: 90vh !important;*/
+width: 50% !important;
+">
+    <div class="text-2xl font-extrabold tracking-tight text-center" style="
+    padding: 20px 10px 0px 10px;
+">
+        GENERAR DESPACHOS
+    </div>
+
+    <div style="padding-left: 95%">
+        <button (click)="onNoClick()" class=" bg-white text-black btn-sm btn-circle btn-ghost absolute ">
+            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM15.36 14.3C15.65 14.59 15.65 15.07 15.36 15.36C15.21 15.51 15.02 15.58 14.83 15.58C14.64 15.58 14.45 15.51 14.3 15.36L12 13.06L9.7 15.36C9.55 15.51 9.36 15.58 9.17 15.58C8.98 15.58 8.79 15.51 8.64 15.36C8.35 15.07 8.35 14.59 8.64 14.3L10.94 12L8.64 9.7C8.35 9.41 8.35 8.93 8.64 8.64C8.93 8.35 9.41 8.35 9.7 8.64L12 10.94L14.3 8.64C14.59 8.35 15.07 8.35 15.36 8.64C15.65 8.93 15.65 9.41 15.36 9.7L13.06 12L15.36 14.3Z"
+                    fill="#1B1B1D" />
+            </svg>
+        </button>
+    </div>
+    <ng-container *ngIf="(pedido$ | async) as pedido">
+        <div class="m-4" style=" margin-top: 0px !important;">
+
+            <!--SEGUNDA PARTE-->
+            <div class=" gap-6 w-full mt-8"
+                style="padding: 5px;border-radius: 6px; border: 3px solid black;margin-top: 0px !important;">
+
+                <div id="contenedor" class=" sm:col-span-6 " *ngIf="pedido.id === null" style="padding: 5%;">
+
+                    <div style="width: 75%;font-weight: 800;">
+                        <!--<mat-form-field style="width: 100%;">
+                            <mat-label>Seleccione Tipo Vehiculo</mat-label>
+                            <mat-select [(value)]="selected" (selectionChange)="setSelected(selected)">
+                                <mat-option *ngFor="let food of foods" [value]="food">
+                                    {{ food.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>-->
+                        <mat-label class="px-[24px]">Seleccione Tipo Vehiculo</mat-label>
+                        <ng-autocomplete [data]="foods" [searchKeyword]="keyword"
+                            [placeholder]=" foods.viewValue? foods.viewValue: 'Seleccione Tipo Vehiculo'"
+                            (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                        <mat-form-field>
+                            <mat-label>Favorite food</mat-label>
+                            <mat-select [(ngModel)]="selectedValue" name="food">
+                                @for (food of foods; track food) {
+                                <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+
+                        * Recuerda el pedido se genera con 7 días de anticipación <br>
+                        Fecha Estimada de Despacho {{ fechaPoner | date }}
+
+
+                    </div>
+                </div>
+                <div *ngIf="dataTabla.length > 0"
+                    class="text-2xl font-extrabold tracking-tight text-center sm:col-span-6">
+                    <div class="text-2xl font-extrabold tracking-tight text-center sm:col-span-6" style="
+                padding: 20px 10px 0px 10px;
+            ">
+                        DETALLES DE DESPACHO
+                    </div>
+                    <table mat-table [dataSource]="seccion2$" class=" sm:col-span-6 example-container mat-elevation-z8"
+                        matSort style="width: 100%;">
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>NO.1</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCION</th>
+                            <td mat-cell *matCellDef="let element"
+                                style="background: #333f4f;color: white;border: 1px solid white;">
+                                {{ element.name }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="porcentaje">
+                            <th mat-header-cell *matHeaderCellDef> %</th>
+                            <td mat-cell *matCellDef="let element" style="background: #333f4f;color: white;">
+                                {{ element.porcentaje }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="unidades">
+                            <th mat-header-cell *matHeaderCellDef> UNIDADES</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.unidades }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cantidad">
+                            <th mat-header-cell *matHeaderCellDef> CANTIDAD</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.factor }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="peso">
+                            <th mat-header-cell *matHeaderCellDef> PESO KG</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.peso }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="total">
+                            <th mat-header-cell *matHeaderCellDef> TOTAL KG</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.totalpeso }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="totalP">
+                            <th mat-header-cell *matHeaderCellDef> TOTAL PAGAR</th>
+                            <td mat-cell *matCellDef="let element"> {{ element.total }}
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <div id="contenedor" class=" sm:col-span-6 ">
+                        <div style="width: 75%;padding-left: 15%;font-weight: 800;">
+                            <h2>TOTAL </h2>
+                        </div>
+                        <div style="width: 25%;padding-left: 15%;font-weight: 800;">
+                            <h2>50.547,9 </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="bottom: 7vh;">
+                <!-- Add Actions -->
+                <ng-container *ngIf="!pedido.id">
+                    <div class="flex items-center justify-end mt-4">
+
+                        <button mat-flat-button [color]="'primary'" [disabled]="!selected " (click)="generar()">
+                            Generar
+                        </button>
+                    </div>
+                </ng-container>
+                <!-- Edit Actions -->
+                <ng-container *ngIf="pedido.id">
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center space-x-2">
+                        </div>
+                        <!-- Close -->
+                        <button mat-flat-button (click)="updateNoteDetails(pedido)">
+                            Actualizar
+                        </button>
+                        <!--<button mat-flat-button matDialogClose>
+            Cerrar
+        </button>-->
+                    </div>
+                </ng-container>
+            </div>
+
+        </div>
+    </ng-container>
+</div>

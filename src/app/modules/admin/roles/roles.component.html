@@ -1,0 +1,122 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+
+    <div class="w-full max-w-screen-xl mx-auto">
+
+        <!-- Tabs -->
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 h-[500px] md:grid-cols-1 gap-6 w-full min-w-0 p-[15px]">
+            <div class="sm:col-span-2 md:col-span-4 lg:col-span-1 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                style="padding-left: 0 !important; padding-right: 0 !important;height: fit-content;">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate pl-[24px]">
+                        ROLES
+                    </div>
+                </div>
+                <div class="flex flex-col p-[10px] mt-2">
+                    <div>
+                        <div class="flex items-start justify-between">
+                            <div class="text-lg font-medium tracking-tight leading-6 truncate px-[24px] w-full">
+                                <mat-form-field class=" fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded
+                        min-w-64" style="width: 100%;">
+                                    <mat-icon [svgIcon]="'heroicons_solid:search'" class="icon-size-5"
+                                        matPrefix></mat-icon>
+                                    <input #input (keyup)="applyFilter($event)" [autocomplete]="'on'" matInput
+                                        placeholder='Busqueda de Elemento'>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate px-[24px] w-full">
+
+                                    <button class="btn rounded-3xl" (click)="openDialog('')" mat-flat-button
+                                        style="background-color: #081f7f; color: #ffffff;    border-radius: 40px !important;">AGREGAR
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <table [dataSource]="rowDetails" class="overflow-y-visible" mat-table>
+
+                            <ng-container matColumnDef="name" sticky>
+                                <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                                    NOMBRE
+                                </th>
+                                <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                                    <span class="flex items-center">
+                                        <span class="ml-3 leading-4">{{budget.role}}</span>
+                                    </span>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="status" sticky>
+                                <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                                    ESTADO
+                                </th>
+                                <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                                    <span class="flex items-center">
+                                        <span *ngIf="budget.active === true" class="flex items-center"
+                                            matTooltip="Habilitado">
+                                            <svg height="30" viewBox="0 0 48 48" width="30" x="0px"
+                                                xmlns="http://www.w3.org/2000/svg" y="0px">
+                                                <path
+                                                    d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
+                                                    fill="#c8e6c9"></path>
+                                                <path
+                                                    d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z"
+                                                    fill="#4caf50"></path>
+                                            </svg> </span>
+
+                                        <span *ngIf="budget.active === false" class="flex items-center"
+                                            matTooltip="Deshabilitado">
+                                            <svg height="30" viewBox="0 0 48 48" width="30" x="0px"
+                                                xmlns="http://www.w3.org/2000/svg" y="0px">
+                                                <path
+                                                    d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
+                                                    fill="#f44336"></path>
+                                                <path
+                                                    d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"
+                                                    fill="#fff"></path>
+                                                <path
+                                                    d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"
+                                                    fill="#fff"></path>
+                                            </svg> </span>
+                                    </span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="accion">
+                                <th *matHeaderCellDef mat-header-cell
+                                    style="z-index: 1;text-align: center; !important;">
+                                    ACCIONES
+                                </th>
+                                <td *matCellDef="let budget" mat-cell style="z-index: 1; text-align: center;">
+
+                                    <button (click)="editarRegion(budget)" matTooltip="Editar">
+                                        <mat-icon [svgIcon]="'heroicons_solid:pencil-square'"
+                                            class="icon-size-5 content-center"></mat-icon>
+                                    </button>
+                                    <button (click)="eliminarRegion(budget)" matTooltip="Eliminar">
+                                        <mat-icon [svgIcon]="'heroicons_solid:trash'"
+                                            class="icon-size-5 content-center"></mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <tr *matHeaderRowDef="budgetDetails.columns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: budgetDetails.columns;" mat-row></tr>
+                            <tr *matNoDataRow class="mat-row">
+                                <td class="mat-cell" colspan="6">No se encontraron resultados</td>
+                            </tr>
+                        </table>
+                        <mat-paginator #paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

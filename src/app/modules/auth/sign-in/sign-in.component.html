@@ -1,0 +1,137 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div
+        class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-full">
+                <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"src="assets/images/logo/logo-boonker.svg">
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Iniciar Sesión</div>
+
+            <!-- Alert -->
+            <fuse-alert class="mt-8" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                [@shake]="alert.type === 'error'">
+                {{ alert.message }}
+            </fuse-alert>
+
+            <!-- Sign in form -->
+            <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Usuario</mat-label>
+                    <input id="username" matInput [formControlName]="'username'">
+                    <mat-error *ngIf="signInForm.get('username').hasError('required')">
+                        Email address is required
+                    </mat-error>
+                    <mat-error *ngIf="signInForm.get('username').hasError('username')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Password field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Contraseña</mat-label>
+                    <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
+                    <button mat-icon-button type="button"
+                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                        matSuffix>
+                        <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                    </button>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+
+                <!-- Submit button -->
+                <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'"
+                    [disabled]="signInForm.disabled" (click)="signIn()">
+                    <span *ngIf="!signInForm.disabled">
+                        Iniciar Sesión
+                    </span>
+                    <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+
+            </form>
+        </div>
+    </div>
+    <div
+        class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-[#009BDB] dark:border-l">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+
+        <!-- Dots -->
+        <div class="w-full" style="
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        align-items: flex-end;
+        height: 100%;
+        position: absolute;
+    ">
+            <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"src="assets/images/logo/docsBoonker.svg" style="
+            width: 30%;
+        ">
+        </div>
+
+
+        <!--<svg class="absolute -top-16 -right-16 text-white"
+             viewBox="0 0 220 192" width="220" height="192" fill="none">
+            <defs>
+                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+                </pattern>
+            </defs>
+            <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
+        </svg>-->
+        <!-- @formatter:on -->
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="mt-6 text-[20px] tracking-tight leading-6 text-gray-100">
+                Plataforma de servicios digitales que integra la atención oportuna de requerimientos y la gestión
+                documental de cada proyecto construido por nuestros clientes.
+            </div>
+
+            <div class="mt-6 text-[20px] tracking-tight leading-6 text-gray-100">
+                Utiliza Boonker Manager para gestionar eficientemente las solicitudes de despacho, el control de las
+                ordenes de pedido, control de saldos y administra la ejecución de los diferentes módulos y cronogramas
+                de tus edificaciones.
+            </div>
+            <div class="flex items-center mt-8">
+
+                <div class="ml-4 font-medium text-[16px] tracking-tight text-gray-100">
+                    <ul>
+
+                        <li>- Más de 1.500 edificaciones de alta calidad en todo el país.</li>
+                        <li>- Más de 200.000 m² construidos eficientemente.</li>
+                        <li>- Versatilidad de aplicaciones: Edificios, Proyectos Habitacionales, Residencias
+                            Particulares,Edificaciones de seguridad estratégica, etc.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-0 items-center pt-[30px]">
+                <!--<div *ngFor="let item of 20">
+                    <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-white ring-offset-gray object-cover"
+                        [src]="'assets/images/avatars/'+ item+'.jpg'">
+                </div>-->
+                <!--<div class="flex flex-0 items-center pt-[30px]">
+                    <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"*ngFor="let item of arrayImages;" style="background-color: white;"
+                        class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-black ring-offset-gray object-cover"
+                        [src]="'assets/images/avatars/'+ item+'.jpg'">
+                </div> -->
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

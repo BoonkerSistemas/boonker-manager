@@ -1,0 +1,23 @@
+.inventory-grid {
+    grid-template-columns: 48px auto 40px;
+  
+    @screen sm {
+      grid-template-columns: 48px auto 112px 72px;
+    }
+  
+    @screen md {
+      grid-template-columns: 48px 112px auto 112px 72px;
+    }
+  
+    /* @screen lg {
+      grid-template-columns: 48px 100px 48px 48px 96px 96px 72px 48px 48px 48px 48px;
+    }*/
+  
+    @screen lg {
+      grid-template-columns: 48px 100px 300px 102px 96px 96px 100px 100px 100px 100px 100px;
+    }
+  }
+
+  .mat-mdc-paginator .mat-mdc-paginator-container {
+    justify-content: center !important;
+}

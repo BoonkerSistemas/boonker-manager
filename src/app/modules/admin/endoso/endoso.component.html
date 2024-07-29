@@ -1,0 +1,233 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+
+
+    <!-- Main -->
+    <div class="flex flex-auto p-2 sm:p-10">
+
+        <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+            <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+                <div class="w-full max-w-150 sm:w-100 mx-auto sm:mx-0">
+                    <!-- Logo -->
+                    <div class="w-full">
+                        <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"src="assets/images/logo/logo-boonker.svg">
+                    </div>
+
+                    <!-- Title -->
+                    <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Importante!</div>
+                    <div class="mt-0.5">
+                        Cuando tu generas un endoso debes tener los siguientes datos a la mano:
+                        <div>
+                            <ul>
+                                <li>- Número de documento del comprador</li>
+                                <li>- Nombres Completos</li>
+                                <li>- Dirección de correo</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-0.5">
+                        Sigue los siguientes pasos:
+                        <ol start="1">
+                            <li>1.- Completa el formulario</li>
+                            <li>2.- Descarga tu certificado actual</li>
+                            <li>3.- Firma tu documento electronicamente con cualquier aplicacion de firmas
+                                electrónicas
+                            </li>
+                            <li>4.- Sube el documento firmado electrónicamente</li>
+                        </ol>
+                        <h3><b>Una vez se genere el endoso, tu usuario quedará desactivado, si tienes algun problema en
+                            el proceso comunica a soporte </b></h3>
+                    </div>
+
+                    <!-- Alert -->
+
+
+                    <!-- Coming soon form -->
+                    <div *ngIf="flag === false">
+                        <form
+                            class="mt-8"
+                            [formGroup]="comingSoonForm"
+                            #comingSoonNgForm="ngForm">
+
+                            <!-- Email field -->
+                            <mat-form-field class="w-full">
+                                <mat-label>Nombre</mat-label>
+                                <input
+                                    id="name"
+                                    matInput
+                                    [formControlName]="'name'">
+                                <mat-error *ngIf="comingSoonForm.get('name').hasError('required')">
+                                    Nombre es un campo obligatorio
+                                </mat-error>
+
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <mat-label>Apellido</mat-label>
+                                <input
+                                    id="lastName"
+                                    matInput
+                                    [formControlName]="'lastName'">
+                                <mat-error *ngIf="comingSoonForm.get('lastName').hasError('required')">
+                                    Apellido es un campo obligatorio
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <mat-form-field class="w-full">
+                                <mat-label>Numero de identificación</mat-label>
+                                <input
+                                    id="ruc"
+                                    matInput
+                                    [formControlName]="'ruc'">
+                                <mat-error *ngIf="comingSoonForm.get('ruc').hasError('required')">
+                                    Nombre es un campo obligatorio
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <mat-form-field class="w-full">
+                                <mat-label>Email</mat-label>
+                                <input
+                                    id="email"
+                                    matInput
+                                    [formControlName]="'email'">
+                                <mat-error *ngIf="comingSoonForm.get('email').hasError('required')">
+                                    Email es un campo obligatorio
+                                </mat-error>
+                                <mat-error *ngIf="comingSoonForm.get('email').hasError('email')">
+                                    Please enter a valid email address
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Submit button -->
+                            <button
+                                class="fuse-mat-button-large w-full mt-3"
+                                mat-flat-button
+                                type="button"
+                                [color]="'primary'"
+                                [disabled]="comingSoonForm.disabled"
+                                (click)="register()">
+                    <span *ngIf="!comingSoonForm.disabled">
+                        Guardar Datos del Endosado
+                    </span>
+                                <mat-progress-spinner
+                                    *ngIf="comingSoonForm.disabled"
+                                    [diameter]="24"
+                                    [mode]="'indeterminate'"></mat-progress-spinner>
+                            </button>
+
+                            <!-- Form footer -->
+
+
+                        </form>
+                    </div>
+                    <div class="mt-8 text-md font-medium text-secondary">
+                        <p> Una vez guardado los datos de la persona a endosar,
+                            <a [href]="src" target="_blank"> <u><b>Descarga aqui el certificado de garantía</b></u></a>, y
+                            subelo
+                            nuevamente a la plataforma</p>
+                    </div>
+                    <form>
+
+
+                        <div
+                            class=" flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                            style="padding-left: 0px !important; padding-right: 0px !important;height: fit-content;">
+                            <form [formGroup]="crearProgramaFormGroup">
+
+                                <div class="flex flex-col px-[10px] mt-2">
+
+                                    <div
+                                        class="sm:col-span-1 md:col-span-1 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden">
+
+
+                                        <div class="grid sm:grid-cols-1 gap-6 w-full ">
+                                            <div class="grid-cols-1 sm:grid-cols2 gap-6 w-full ">
+                                                <div
+                                                    class="sm:col-span-1 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                                                    style="padding-left: 0px !important; padding-right: 0px !important;height: 400px;">
+                                                    <div class="flex flex-col px-[10px] mt-2" style="
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 100%;
+                                        ">
+
+                                                        <label>Imagen Web</label>
+                                                        <div class="drag-drop">
+                                                            <input (change)="selectFile($event)"
+                                                                   accept="image/*" id="photo"
+                                                                   multiple="multiple"
+                                                                   type="file"/>
+                                                            <span class="fa-stack fa-2x" style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    flex-wrap: nowrap;
+                                                    align-content: center;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                ">
+                                    <mat-icon [svgIcon]="'heroicons_outline:cloud'" class=" bottom" matPrefix style="    position: absolute;width: 3rem !important;
+                                                            height: 3rem !important;"></mat-icon>
+                                    <mat-icon [svgIcon]="'heroicons_outline:arrow-up-circle'" class="icon-size-5 medium"
+                                              matPrefix></mat-icon>
+                                </span>
+                                                            <span class="desc">Pulse aquí para añadir archivos</span>
+                                                            <span class="desc ">Máximo 5mb</span>
+                                                        </div>
+
+                                                        <div>
+                                                            <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"[src]="preview" class="preview">
+                                                        </div>
+
+                                                        <div *ngIf="currentFile && progress"
+                                                             class="progress my-3">
+                                                            <div [ngStyle]="{ width: progress + '%' }"
+                                                                 aria-valuemax="100" aria-valuemin="0"
+                                                                 attr.aria-valuenow="{{ progress }}"
+                                                                 class="progress-bar progress-bar-info"
+                                                                 role="progressbar">
+                                                                {{ progress }}%
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <button
+                            class="fuse-mat-button-large w-full mt-3"
+                            mat-flat-button
+                            type="button"
+                            [color]="'primary'"
+                            [disabled]="comingSoonForm.disabled"
+                            (click)="saveUpload()">
+                    <span *ngIf="!comingSoonForm.disabled">
+                        Generar Endoso
+                    </span>
+
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

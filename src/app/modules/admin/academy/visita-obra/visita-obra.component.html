@@ -1,0 +1,168 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+
+    <div class="w-full max-w-screen-xl mx-auto">
+
+        <!-- Tabs -->
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 h-[500px] md:grid-cols-1 gap-6 w-full min-w-0 p-[15px]">
+            <div class="sm:col-span-2 md:col-span-4 lg:col-span-1 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                style="padding-left: 0 !important; padding-right: 0 !important;height: fit-content;">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate pl-[24px]">
+                        Informes de Visita
+                    </div>
+                </div>
+                <div class="flex flex-col p-[10px] mt-2">
+                    <div>
+                        <div class="flex flex-row items-start justify-between" style="
+                        justify-content: end !important;
+                    ">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate px-[24px] w-full">
+
+                                        <!--<button class="btn rounded-3xl" mat-flat-button
+                                            [routerLink]="['../../visita-obra-form/', idProyect]"
+                                            style="background-color: #081f7f; color: #ffffff;    border-radius: 40px !important;">AGREGAR
+                                        </button>-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<table [dataSource]="inventary" class="overflow-y-visible" mat-table>
+
+
+                            <ng-container matColumnDef="code" sticky>
+                                <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                                    ID VISITA
+                                </th>
+                                <td *matCellDef="let inventary" mat-cell style="z-index: 1;">
+                                    <span class="flex items-center">
+                                        <span class="ml-3 leading-4">{{inventary._id}}</span>
+                                    </span>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="store" sticky>
+                                <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                                    FECHA VISITA
+                                </th>
+                                <td *matCellDef="let inventary" mat-cell style="z-index: 1;">
+                                    <span class="flex items-center">
+                                        <span class="ml-3 leading-4">
+                                            {{inventary.createdAt | date:'d-M-yyyy hh:mm'}}</span>
+                                    </span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="amount" sticky>
+                                <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                                    DOCUMENTO
+                                </th>
+                                <td *matCellDef="let inventary" mat-cell style="z-index: 1;">
+                                    <span class="flex items-center" *ngIf="!inventary.s31">
+                                        <span class="ml-3 leading-4">SIN DOCUMENTO</span>
+                                    </span>
+                                    <button mat-stroked-button class="content-center px-2" *ngIf="inventary.s31"
+                                        (click)="verDocumento(inventary)"
+                                        style="margin-right: 5px; background-color: #081f7f; color: #ffffff;">
+                                        <mat-icon class="ml-1.5 text-white icon-size-5"
+                                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                        VER
+                                        DOCUMENTO
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr *matHeaderRowDef="inventaryColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: inventaryColumns" mat-row></tr>
+                            <tr *matNoDataRow class="mat-row">
+                                <td class="mat-cell" colspan="6">No se encontraron resultados</td>
+                            </tr>
+                        </table>
+                        <mat-paginator #paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>-->
+
+                        <div class="w-full ">
+                            <!-- Items list -->
+                            Detectamos {{ documentos.length }} archivos cargados.
+                            <ng-container *ngIf="documentos && documentos.length > 0 ; else noItems">
+                                <div class="p-6 md:p-8 space-y-8">
+
+
+                                    <!-- Files -->
+                                    <ng-container *ngIf="documentos.length > 0">
+                                        <div>
+                                            <div class="font-medium">ARCHIVOS</div>
+                                            <div class="flex flex-wrap -m-2 mt-2">
+                                                <ng-container *ngFor="let file of documentos; ">
+                                                    <a class="flex flex-col w-70 h-70 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card"
+                                                        (click)="visualizerPdf(file)">
+                                                        <div class="aspect-[9/6]">
+                                                            <div class="flex items-center justify-center h-full">
+                                                                <!-- Icons -->
+                                                                <div class="relative">
+                                                                    <mat-icon class="icon-size-14 text-hint opacity-50"
+                                                                        [svgIcon]="'heroicons_solid:document'"></mat-icon>
+                                                                    <div
+                                                                        class="bg-red-600 absolute left-0 bottom-0 px-1.5 rounded text-sm font-semibold leading-5 text-white">
+                                                                        PDF
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="flex flex-col flex-auto justify-center text-center text-sm font-medium">
+                                                            <div class="truncate" [matTooltip]="file.project">
+                                                                {{file.project}}</div>
+                                                            <ng-container *ngIf="file.contents">
+                                                                <div class="text-secondary truncate">{{ file.contents }}
+                                                                </div>
+                                                            </ng-container>
+
+                                                            <button class="fuse-mat-button-large w-full mt-6"
+                                                                mat-flat-button [color]="'primary'"
+                                                                (click)="download(file)">
+                                                                <span>
+                                                                    Descargar
+                                                                </span>
+
+                                                            </button>
+                                                        </div>
+                                                    </a>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+
+                            <!-- No items template -->
+                            <ng-template #noItems>
+                                <div
+                                    class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                                    <mat-icon class="icon-size-24"
+                                        [svgIcon]="'heroicons_outline:folder-open'"></mat-icon>
+                                    <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">¡No hay
+                                        items!</div>
+                                </div>
+                            </ng-template>
+
+                            <pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" [render-text]="true" [original-size]="false"
+                                style="width: 100%; height: 500px"></pdf-viewer>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+<div class="flex flex-auto overflow-hidden">
+    <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div
+                        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+                        <!-- Title -->
+                        <div class="text-4xl font-extrabold tracking-tight">
+                            <button (click)="anterior()" [color]="'primary'" class="ml-4" mat-flat-button style="--mdc-filled-button-container-color: #4e46e500;
+                            --mdc-filled-button-label-text-color: #000000;    padding: 0px !important;
+    margin-left: 0px !important;
+    flex-direction: row-reverse;
+    justify-content: flex-end;">
+                                <mat-icon [svgIcon]="'heroicons_outline:chevron-double-left'"></mat-icon>
+                            </button>
+                            <span>Cargar Documento</span>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <!-- Add product button -->
+                            <button (click)="onClickGuardar(crearFormGroup.value)" [color]="'primary'" class="ml-4"
+                                    mat-flat-button type="submit">
+                                <mat-icon [svgIcon]="'heroicons_outline:archive-box-arrow-down'"></mat-icon>
+                                <span>Guardar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-header">
+
+                            <div class="flex flex-col flex-auto min-w-0">
+                                <div class="w-full max-w-screen-xl mx-auto">
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 w-full min-w-0 p-[15px]">
+                                        <!--Inicio PRIMERA PARTE-->
+                                        <div
+                                            class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                                            style="padding-left: 0px !important; padding-right: 0px !important;height: fit-content;">
+                                            <form [formGroup]="crearFormGroup">
+                                                <div class="flex flex-col px-[10px] mt-2">
+                                                    <div class="grid sm:grid-cols-5 gap-6 w-full ">
+                                                        <div class="sm:col-span-2">
+                                                            <mat-form-field class="fuse-mat-no-subscript w-full ">
+                                                                <mat-label>Tipo</mat-label>
+
+                                                                <select (change)="getSelectedValue($event.target)"
+                                                                        [value]="tiempo" formControlName="tiempo"
+                                                                        matNativeControl required>
+                                                                    <option value="Diseños">Diseños</option>
+
+                                                                    <option value="Ingenierías complementarias">
+                                                                        Ingenierías complementarias
+                                                                    </option>
+                                                                    <option value="Garantías">Garantías
+                                                                    </option>
+                                                                    <option value="Futuras modificaciones">
+                                                                        Futuras modificaciones
+                                                                    </option>
+
+                                                                </select>
+
+                                                                <mat-error
+                                                                    *ngIf="crearFormGroup.get('tiempo').errors || crearFormGroup.get('tiempo').dirty || crearFormGroup.get('tiempo').invalid">
+                                                                    *
+                                                                    Este
+                                                                    Campo es Obligatorio
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+
+                                                        <div class="sm:col-span-1 text-center">
+
+                                                            <section [formGroup]="crearFormGroup"
+                                                                     class="example-section">
+                                                                <h4>Activo</h4>
+                                                                <p>
+                                                                    <mat-checkbox
+                                                                        formControlName="activo"></mat-checkbox>
+                                                                </p>
+                                                            </section>
+
+
+                                                        </div>
+
+                                                        <div class="flex flex-col px-[10px] mt-2">
+                                                            <div class="grid sm:grid-cols-5 gap-6 w-full ">
+                                                                <div class="sm:col-span-5">
+                                                                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                                                                        <mat-label>Descripción</mat-label>
+                                                                        <mat-icon [svgIcon]="'heroicons_outline:pencil'"
+                                                                                  class="icon-size-5" matPrefix></mat-icon>
+                                                                        <input [ngClass]="{ 'is-invalid': crearFormGroup.get('titulo').errors&&
+                                       crearFormGroup.get('titulo').dirty  }" formControlName="titulo" id="titulo"
+                                                                               matInput maxlength="30" type="text">
+
+                                                                    </mat-form-field>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <!--FIN PRIMERA PARTE-->
+
+
+                                        <!--Inicio CUARTA PARTE-->
+
+                                        <div
+                                            class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                                            style="padding-left: 0px !important; padding-right: 0px !important;height: fit-content;">
+                                            <form [formGroup]="crearProgramaFormGroup">
+
+                                                <div class="flex flex-col px-[10px] mt-2">
+
+                                                    <div
+                                                        class="sm:col-span-2 md:col-span-2 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden">
+
+
+                                                        <div class="grid sm:grid-cols-2 gap-6 w-full ">
+                                                            <div class="grid-cols-2 sm:grid-cols2 gap-6 w-full ">
+                                                                <div
+                                                                    class="sm:col-span-1 md:col-span-4 lg:col-span-2 flex flex-col flex-auto  bg-card shadow rounded-2xl overflow-hidden"
+                                                                    style="padding-left: 0px !important; padding-right: 0px !important;height: 400px;">
+                                                                    <div class="flex flex-col px-[10px] mt-2" style="
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 100%;
+                                        ">
+
+                                                                        <label>Documento</label>
+                                                                        <div class="drag-drop">
+                                                                            <input (change)="selectFile($event)"
+                                                                                   accept="application/pdf" id="photo"
+                                                                                   multiple="multiple"
+                                                                                   type="file"/>
+                                                                            <span class="fa-stack fa-2x" style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    flex-wrap: nowrap;
+                                                    align-content: center;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                ">
+                                    <mat-icon [svgIcon]="'heroicons_outline:cloud'" class=" bottom" matPrefix style="    position: absolute;width: 3rem !important;
+                                                            height: 3rem !important;"></mat-icon>
+                                    <mat-icon [svgIcon]="'heroicons_outline:arrow-up-circle'" class="icon-size-5 medium"
+                                              matPrefix></mat-icon>
+                                </span>
+                                                                            <span class="desc">Pulse aquí para añadir archivos</span>
+                                                                            <span class="desc ">Máximo 5mb</span>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"[src]="preview" class="preview">
+                                                                        </div>
+
+                                                                        <div *ngIf="currentFile && progress"
+                                                                             class="progress my-3">
+                                                                            <div [ngStyle]="{ width: progress + '%' }"
+                                                                                 aria-valuemax="100" aria-valuemin="0"
+                                                                                 attr.aria-valuenow="{{ progress }}"
+                                                                                 class="progress-bar progress-bar-info"
+                                                                                 role="progressbar">
+                                                                                {{ progress }}%
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div
+  class="relative flex flex-col flex-auto p-6 pr-3 pb-3 bg-card rounded-2xl shadow overflow-hidden my-2 space-y-2"
+>
+  <div class="absolute bottom-0 right-0 w-24 h-24 -m-6">
+    <ng-container>
+      <mat-icon [class]="statusClass" [svgIcon]="statusType"></mat-icon>
+    </ng-container>
+  </div>
+
+  <table class="table-requirements">
+    <th class="item-text-first">
+      <div class="font-medium text-secondary">N° Requerimiento</div>
+    </th>
+    <th class="item-component">
+      <div class="font-medium text-secondary">Encargado</div>
+    </th>
+    <th class="item-text-third">
+      <div class="font-medium text-secondary">Estado del ticket</div>
+    </th>
+    <th class="item-text-second">
+      <div class="font-medium text-secondary">Asunto</div>
+    </th>
+    <tr>
+      <td (click)="redirectDetail()" class="cursor-pointer">
+        <div
+          [matTooltip]="issue.data.area.value || ''"
+          class="flex items-center justify-center w-24 h-14 rounded bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-blue-50"
+        >
+          <div class="mt-2 font-medium text-2xl">
+            <strong>{{ issue.data.key }}</strong>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex-left w-64">
+          <user-info
+            [accountId]="issue.data.assignee.accountId"
+            [name]="issue.data.assignee.displayName"
+            [avatar]="issue.data.assignee.avatar"
+            [jiraMode]="true"
+          ></user-info>
+        </div>
+      </td>
+      <td>
+        <div class="flex-left w-36">
+          <div
+            class="mt-2 font-medium text-2xl truncate  {{ statusTextClass }}"
+          >
+            {{ issue.data.status.name }}
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex-left">
+          <div class="mt-2 font-medium text-2xl truncate">
+            <strong>{{ issue.data.summary }} </strong>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

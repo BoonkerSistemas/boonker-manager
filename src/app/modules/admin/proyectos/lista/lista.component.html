@@ -1,0 +1,186 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Proyectos</div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64" style="width: 100%;">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput (keyup)="applyFilter($event)" [autocomplete]="'on'" [placeholder]="'Buscar Proyecto'"
+                       #input>
+            </mat-form-field>
+            <!-- Add product button -->
+            <!--<button class="ml-4" mat-flat-button [color]="'primary'" (click)="createProduct()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Añadir</span>
+            </button>-->
+
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden" style="overflow: auto !important;">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+             style="overflow: auto !important;">
+
+            <!---desde aquiiiii-->
+
+
+            <div class=" mat-elevation-z8">
+                <table mat-table [dataSource]="proyectos$" class=" example-container mat-elevation-z8" matSort
+                       style="width: 100%;">
+                    <!--- Note that these columns can be defined in any order.
+         The actual rendered columns are set as a property on the row definition" -->
+
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="n">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>N°</th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cliente">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CLIENTE</th>
+                        <td mat-cell *matCellDef="let element"> {{element.client }} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="construc">
+                        <th mat-header-cell *matHeaderCellDef> CONSTRUC.</th>
+                        <td mat-cell *matCellDef="let element"> {{element.construction}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proyecto">
+                        <th mat-header-cell *matHeaderCellDef> PROYECTO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.project}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ubicacion">
+                        <th mat-header-cell *matHeaderCellDef> UBICACION</th>
+                        <td mat-cell *matCellDef="let element"> {{element.location}}
+                        </td>
+                    </ng-container>
+                    <!--<ng-container matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef> FECHA</th>
+                        <td mat-cell *matCellDef="let element"> {{element.date}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="area">
+                        <th mat-header-cell *matHeaderCellDef> AREA COTIZADA/m2</th>
+                        <td mat-cell *matCellDef="let element"> {{element.listedArea}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="monto">
+                        <th mat-header-cell *matHeaderCellDef> MONTO KIT BOONKER/sin IVA COTIZADO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.costBoonker}}
+                        </td>
+                    </ng-container>-->
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef> ESTATUS</th>
+                        <td mat-cell *matCellDef="let element"> {{element.state}}
+                        </td>
+                    </ng-container>
+
+                    <!--<ng-container matColumnDef="ultimo">
+                        <th mat-header-cell *matHeaderCellDef> ULTIMO CONTACTO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.lastContact}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estatus">
+                        <th mat-header-cell *matHeaderCellDef> ESTATUS</th>
+                        <td mat-cell *matCellDef="let element"> {{element.ncm}}
+                        </td>
+                    </ng-container>-->
+
+                    <!--<ng-container matColumnDef="porcentaje">
+                        <th mat-header-cell *matHeaderCellDef> PORCENTAJE PROBABILIDAD CIERRE</th>
+                        <td mat-cell *matCellDef="let element"> {{element.percentClose}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="valor">
+                        <th mat-header-cell *matHeaderCellDef> VALOR ESTIMADO CIERRE</th>
+                        <td mat-cell *matCellDef="let element"> {{element.ncm}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proximo">
+                        <th mat-header-cell *matHeaderCellDef> PROXIMO PASO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nextStep}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fecha_proximo">
+                        <th mat-header-cell *matHeaderCellDef> FECHA PROXIMO PASO</th>
+                        <td mat-cell *matCellDef="let element"> {{element.updatedAt}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="observaciones">
+                        <th mat-header-cell *matHeaderCellDef> OBSERVACIONES</th>
+                        <td mat-cell *matCellDef="let element"> {{element.observation}}
+                        </td>
+                    </ng-container>-->
+
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                        <td mat-cell *matCellDef="let element">
+                            <!--<button class="min-w-10 min-h-7 h-7 px-2 leading-6" mat-stroked-button
+                                (click)="toggleDetails(element.id)">
+                                <mat-icon class="icon-size-5"
+                                    [svgIcon]="selectedProyectos?.id === element.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'">
+                                </mat-icon>
+                            </button>-->
+
+                            <!-- edit -->
+                            <button mat-icon-button (click)="openProyectDialog(element)">
+                                <mat-icon [svgIcon]="'heroicons_solid:pencil'" [color]="'primary'"></mat-icon>
+                            </button>
+                            <button mat-icon-button routerLink="/pedidos">
+                                <mat-icon [svgIcon]="'heroicons_solid:eye'" [color]="'primary'"></mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[ 5,10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+
+            <div class="grid" id="second">
+                <ng-container *ngIf="selectedProyectos?.id ">
+                    <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: product}">
+                    </ng-container>
+                </ng-container>
+            </div>
+
+            <ng-template #noProducts>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No tienes Productos!
+                </div>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</div>

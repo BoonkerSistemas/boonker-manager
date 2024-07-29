@@ -1,0 +1,152 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Despachos Generados {{ client.name }}</div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+
+
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+
+            <button  mat-button  class="bg-primary text-white content-center " matTooltip="Ver Despachos" (click)="openDocument()">
+                Generar Nuevo Despacho
+            </button>
+
+
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden" style="overflow: auto !important;">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+             style="overflow: auto !important;">
+            <div class=" mat-elevation-z8">
+
+                <table mat-table [dataSource]="proyectosOp$" class="overflow-y-visible">
+
+                    <ng-container matColumnDef="guia" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            #Guia
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                {{ budget.commets }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pedido" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            Fecha de Despacho
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                {{ budget.datePay | date}}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modulo" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            M2 Despachados
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                {{ budget.m2Despachados }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estatus" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            M2 Faltantes
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                <span class="flex items-center">
+                                    {{ budget.m2PorDespachados }}
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="porDespachar" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            Valor Cancelado
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                <span class="flex items-center">
+                                  $  {{ budget.pagar }}
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="despachado" sticky>
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                            Valor pendiente de pago
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                            <span class="flex items-center">
+                                <span class="flex items-center">
+                                   $ {{ budget.saldo }}
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="accion">
+                        <th *matHeaderCellDef mat-header-cell style="z-index: 1;text-align: center; !important;">
+                            ACCIONES
+                        </th>
+                        <td *matCellDef="let budget" mat-cell style="z-index: 1; text-align: center;">
+                            <button matTooltip="Ver Darsboard" (click)="OpenDashboard(budget)">
+                                <mat-icon [svgIcon]="'heroicons_solid:chart-pie'"
+                                          class="icon-size-5 content-center"></mat-icon>
+                            </button>
+                            <button  matTooltip="Agregar" (click)="visualizarEnvio(budget)">
+                                <mat-icon [svgIcon]="'heroicons_solid:document-arrow-down'"
+                                          class="icon-size-5 content-center"></mat-icon>
+                            </button>
+
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator #paginator [pageSizeOptions]="[ 10, 25, 100]"
+                               aria-label="Select page of users"></mat-paginator>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+             style="overflow: auto !important;">
+            <div class=" mat-elevation-z8">
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

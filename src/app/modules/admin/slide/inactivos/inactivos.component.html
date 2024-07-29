@@ -1,0 +1,112 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+
+    <div class="w-full max-w-screen-xl mx-auto">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 h-full md:grid-cols-1 gap-6 w-full min-w-0 p-[15px]">
+            <div class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                 style="padding-left: 0 !important; padding-right: 0 !important;height: fit-content;">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate px-[24px] w-full">
+                        <mat-form-field class=" fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded
+                        min-w-64" style="width: 100%;">
+                            <mat-icon [svgIcon]="'heroicons_solid:search'" class="icon-size-5" matPrefix></mat-icon>
+                            <input #input (keyup)="applyFilter($event)" [autocomplete]="'on'" matInput
+                                   placeholder='Busqueda de Inactivos'>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="flex flex-col p-[24px] mt-2">
+                    <div>
+                        <table #table [dataSource]="data" class=" example-container  overflow-y-visible" mat-table
+                               matSort>
+
+
+                            <ng-container matColumnDef="titulo">
+                                <th *matHeaderCellDef mat-header-cell> Nombre</th>
+                                <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="autor">
+                                <th *matHeaderCellDef mat-header-cell> Tipo</th>
+                                <td *matCellDef="let element" mat-cell> {{element.type|
+                                    uppercase}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaInicio">
+                                <th *matHeaderCellDef mat-header-cell> Fecha Inicio</th>
+                                <td *matCellDef="let element" mat-cell> {{element.startDate| date:
+                                    "dd-MM-yyyy":"UTC"}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="fechaFin">
+                                <th *matHeaderCellDef mat-header-cell> Modulos</th>
+                                <td *matCellDef="let element" mat-cell> {{element.modules}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="curso">
+                                <th *matHeaderCellDef mat-header-cell> Estado de construcción
+                                </th>
+                                <td *matCellDef="let element" mat-cell> {{element.status}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="client">
+                                <th *matHeaderCellDef mat-header-cell> Cliente
+                                </th>
+                                <td *matCellDef="let element" mat-cell> {{element.client}} </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="accion">
+                                <th *matHeaderCellDef mat-header-cell>Acciones</th>
+                                <td *matCellDef="let element" mat-cell>
+                                    <button (click)="verImagen(element)" class="content-center px-2"
+                                            matTooltip="Imagen">
+                                        <mat-icon class="icon-size-5  " svgIcon="heroicons_solid:photo">
+                                        </mat-icon>
+                                    </button>
+                                    <button (click)="verElemento(element) " class="content-center px-2"
+                                            matTooltip="Visualizar Elementos">
+                                        <mat-icon class="icon-size-5  " svgIcon="heroicons_solid:eye">
+                                        </mat-icon>
+                                    </button>
+
+                                    <button [routerLink]="['./new-project/', element._id]" class="content-center px-2"
+                                            matTooltip="Editar">
+                                        <mat-icon class="icon-size-5  " svgIcon="heroicons_solid:pencil">
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="eliminarSlider(element)" class="content-center px-2 "
+                                            matTooltip="Eliminar">
+                                        <mat-icon [svgIcon]="'heroicons_solid:trash'" class="icon-size-6"></mat-icon>
+                                    </button>
+
+                                </td>
+                            </ng-container>
+
+
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                            <tr *matNoDataRow class="mat-row">
+                                <td class="mat-cell" colspan="6">No se encontraron resultados</td>
+                            </tr>
+                        </table>
+
+
+                        <mat-paginator #paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <ng-template>
+                        <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
+                            products!
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="grid  border-t divide-x -m-6 mt-4 bg-gray-50 dark:bg-transparent">
+                    <button (click)="nuevo()" mat-flat-button
+                            style="background-color: #081f7f; color: #ffffff;    border-radius: 0 !important;">AGREGAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

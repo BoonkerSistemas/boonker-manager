@@ -1,0 +1,86 @@
+<soho-popover
+  matTooltip="Clìck para ver más detalles del soher."
+  [xPosition]="'after'"
+  [yPosition]="'above'"
+  [popoverContent]="popoverContent"
+  #popover="sohoMatPopover"
+  [extraClass]="sohoPopoverColor"
+  style="width: 100% !important"
+>
+  <div
+    class="flex flex-col h-full w-full shadow rounded bg-gray-100 text-secondary dark:bg-white dark:bg-opacity-5"
+    [class]="backgroundClass"
+  >
+    <span class="inline-flex py-2 px-2 items-center">
+      <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"class="w-10 h-10 rounded-full" *ngIf="avatar" [src]="userImgUrl" />
+      <span class="ml-2 truncate" style="width: 100%">
+        <strong>{{ userData?.firstname }}  {{ userData?.lastname }}</strong>
+      </span>
+    </span>
+  </div>
+</soho-popover>
+
+<ng-template #popoverContent>
+  <span *ngIf="isLoading">
+    <div role="status" class="max-w-sm animate-pulse">
+      <div
+        class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"
+      ></div>
+      <div
+        class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"
+      ></div>
+    </div>
+  </span>
+  <div *ngIf="!isLoading" class="w-full">
+    <span class="inline-flex items-center">
+      <img
+        class="self-center w-10 h-10 rounded-full"
+        *ngIf="avatar"
+        [src]="userImgUrl"
+      />
+      <span class="px-2 text-on-primary-200 font-bold">{{ name }}</span>
+    </span>
+    <mat-divider></mat-divider>
+    <div *ngIf="dataLoaded == true" class="content">
+      <!--<h2 *ngIf="userData?.position">
+        <strong>Cargo:</strong>
+        <span class="text-on-primary-200"> {{ userData?.position?.name }}</span>
+      </h2>
+      <h2 *ngIf="userArea">
+        <strong>Area:</strong>
+        <span class="text-on-primary-200"> {{ userArea?.name }}</span>
+      </h2>-->
+      <mat-divider></mat-divider>
+      <h2 *ngIf="userData?.email">
+        <strong>Correo:</strong>
+        <span class="text-on-primary-200"> {{ userData?.email }}</span>
+      </h2>
+      <h2 *ngIf="userData?.country">
+        <strong>Nacionalidad:</strong>
+        <span class="text-on-primary-200">
+          {{ userData?.country }}</span
+        >
+      </h2>
+      <mat-divider></mat-divider>
+      <div class="grid grid-cols-2 gap-2 w-full mt-4">
+        <a mat-button [routerLink]="[userProfileUrl]" [color]="'primary'">
+          <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:eye'"
+          ></mat-icon>
+          <span class="ml-2">Ver perfil</span>
+        </a>
+        <a mat-button [href]="'mailto: ' + userData?.email" [color]="'primary'">
+          <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:mail'"
+          ></mat-icon>
+          <span class="ml-2">Enviar correo</span>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="dataLoaded == false">
+      <p>No hay información adicional que mostrar.</p>
+    </div>
+  </div>
+</ng-template>

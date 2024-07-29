@@ -1,0 +1,597 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex justify-around items-center p-4 border-b">
+
+        <div class="flex flex-col gap-4">
+            <!-- Title -->
+            <div class="text-2xl text-center font-black tracking-tight uppercase">Orden Generada: <span class="opacity-40">{{ client.name }}</span></div>
+            <!-- Actions -->
+            <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                //busqueda
+
+
+            </div> -->
+            <div class="flex gap-2 justify-center items-center">
+                <h2 class="text-sm font-black uppercase">Modulos* : </h2>
+                <div class="ng-autocomplete example-full-width px-[8px] w-80">
+                    <!-- <mat-label class="px-[5px]">Seleccione Modulo*</mat-label> -->
+                    <ng-autocomplete [data]="rol" [searchKeyword]="keyword"
+                        [placeholder]=" tipo.module? tipo.module: 'Seleccione Modulo'" (selected)='selectEvent($event)'
+                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]=" item.module"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 items-center mt-6 sm:mt-0 sm:ml-4">
+            <h2 class="text-2xl font-black uppercase">Más Acciones:</h2>
+            <div class="flex gap-2">
+                <button mat-button class="bg-red-600 hover:bg-red-500 text-white "
+                    (click)="generarNewDespacho()">
+                    Nuevo Despacho
+                </button>
+                <button mat-button class="bg-primary hover:bg-sky-600 text-white "
+                    (click)="openDespachos()">
+                    Ver Despachos
+                </button>
+            </div>
+
+            <!--<button mat-button class="bg-primary text-white content-center " matTooltip="Ver Despachos"
+                (click)="addColumn()">
+                Generar Nuevo Columna
+            </button>-->
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden" style="overflow: auto !important;flex-direction: column;"
+        *ngIf="mostrarTabla">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+            style="overflow: auto !important;width: 100%;padding: 24px;">
+            <div class=" mat-elevation-z8">
+
+                <div class="text-lg font-bold justify-center text-center tracking-tight">Órden de Pedido Cargada</div>
+
+                <!--<table mat-table [dataSource]="proyectosOp$" class="mat-elevation-z8">
+                    @for (column of displayedColumnsDinamico; track column) {
+                    <ng-container [matColumnDef]="column">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                            <span *ngIf="column.includes('GUIA')">{{column}}</span>
+                            <span *ngIf="column === 'detalle'">Detalle</span>
+                            <span *ngIf="column === 'unidad'">Unidad</span>
+                            <span *ngIf="column === 'cantidad'">Cantidad</span>
+                            <span *ngIf="column === 'precioUnitario'">Precio Unitario</span>
+                            <span *ngIf="column === 'total'">Total</span>
+
+                        </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;">
+
+
+                            <span *ngIf="!column.includes('GUIA')">{{element[column]}}</span>
+
+                            <div *ngIf="column.includes('GUIA')"
+                                class="flex flex-col flex-auto p-6 bg-card rounded-2xl overflow-hidden">
+                                <span style="border: 1px solid; ">Fecha 1/02/202</span>
+                                <div id="contenedor">
+                                    <div id="principal" style="border: 1px solid; ">
+                                        <p style="border: 1px solid; width: 100%;">Cantidad</p>
+                                        80.9
+                                    </div>
+                                    <div id="sidebar" style="border: 1px solid; ">
+                                        <p style="border: 1px solid; width: 100%;">Valor</p>
+                                        2.751.975
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    }
+
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+                    </tr>
+                    </table>
+
+                    <mat-paginator #paginator [pageSizeOptions]="[ 10, 25, 100]"
+                        aria-label="Select page of users"></mat-paginator>-->
+
+                    <div iv id="contenedor2" style="padding: 24px;">
+                        <div id="principal2">
+                            <div class="Table">
+                                <div class="Title">
+                                    <p> Detalle de despacho proyecto {{client.name}}</p>
+                                </div>
+                                <div class="Heading">
+                                    <div class="Cell" *ngFor="let cabecera of displayedColumns">
+
+                                        <p>{{cabecera | titlecase}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of dataTabla">
+                                    <div class="Cell" *ngFor="let cabecera of displayedColumns">
+                                        <p *ngIf="cabecera === 'detalle'" style="width: max-content;">
+                                            {{prueba[cabecera]}}</p>
+                                        <p *ngIf="cabecera !== 'detalle'">{{prueba[cabecera]}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div id="sidebar2" *ngFor="let guia of dataTablaGuias">
+                            <div class="Table">
+                                <div class="Title">
+                                    <p> Guia # {{guia.guide}}</p>
+                                    <p> Fecha {{guia.date | date }}</p>
+                                </div>
+                                <div class="Heading">
+                                    <div class="Cell">
+                                            <p>Detalle</p>
+                                        </div>
+                                    <div class="Cell">
+                                        <p style="width: max-content;">Cantidad (m2)</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>Valor</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of guia.detalle">
+                                    <div class="Cell">
+                                            <p>{{prueba.detalle}}</p>
+                                        </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.cantidad | number}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.total | currency}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div id="sidebar3">
+                            <!--INICIO-->
+                            <div class="Table">
+                                <div class="Title">
+                                    <p> Total Enviado</p>
+                                </div>
+                                <div class="Heading">
+                                    <!--<div class="Cell">
+                                            <p>Detalle</p>
+                                        </div>-->
+                                    <div class="Cell">
+                                        <p>Cantidad</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>Valor</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of dataTabla">
+                                    <!--<div class="Cell">
+                                            <p>{{prueba.detalle}}</p>
+                                        </div>-->
+                                    <div class="Cell">
+                                        <p>{{prueba.cantidad | number}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.precio | currency}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--FIN-->
+                        </div>
+
+                        <div id="sidebar4">
+                            <div class="Table">
+                                <div class="Title">
+                                    <p> Saldo por Enviar</p>
+                                </div>
+                                <div class="Heading">
+                                    <!--<div class="Cell">
+                                            <p>Detalle</p>
+                                        </div>-->
+                                    <div class="Cell">
+                                        <p>Cantidad</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>Valor</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of dataTabla">
+                                    <!--<div class="Cell">
+                                            <p>{{prueba.detalle}}</p>
+                                        </div>-->
+                                    <div class="Cell">
+                                        <p>{{prueba.cantidad | number}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.precio | currency}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                <!--<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0"
+                    style="    padding: 14px !important;">
+                    <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <div class="flex items-start justify-between">
+                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Sub Total</div>
+                        </div>
+                        <div class="flex flex-col items-center mt-2">
+                            <div class="text-[30px]  font-bold tracking-tight leading-none text-amber-500">
+                                $ {{ pedido.subtotal }}
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Valor con Iva</div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-[30px] font-bold tracking-tight leading-none text-amber-500">
+                            $ {{ pedido.iva }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Total</div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-[40px] font-bold tracking-tight leading-none text-sky-800">
+                            $ {{ pedido.total }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>-->
+
+            </div>
+            <br>
+            <div *ngIf="ultimaguia[0] !== undefined; else elseBlock">
+                <br>
+                <!-- <div class="{{estadoBoton !== 'Aprobado por Finanzas' ? 'bg-orange-500 p-1' : 'bg-green-500 p-1'}}"> -->
+                    <div class=" mat-elevation-z8">
+
+                        <p class="text-lg text-center font-medium leading-6 ">ULTIMO DESPACHO GENERADO</p>
+                        <div [ngSwitch]="estadoBoton" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" style="
+                        text-align: center;
+                        padding-top: 24px;
+                        padding-right: 24px;
+                        padding-left: 10%;">
+
+
+                            <ng-container *ngSwitchCase="'Aprobado por Finanzas'">
+                                <div class="flex flex-col-reverse justify-center items-center gap-2">
+                                    <div class="flex gap-2 justify-end ">
+                                        <p class="text-lg font-bold uppercase w-[350px]">Pagar con Payphone:</p>
+                                        <button mat-button class="bg-primary text-white content-center w-[100px]" matTooltip="Pagar"
+                                            (click)="pagar(ultimaguia)" style="width: 10%;">
+                                            Pagar
+                                        </button>
+                                    </div>
+                                    <div class="flex gap-2 justify-end ">
+                                        <p class="text-lg font-bold uppercase w-[350px]" >Subir Comprobante de Pago:</p>
+                                        <button (click)="openPago()" mat-button class="bg-primary text-white content-center w-[100px]" matTooltip="Subir Pago"
+                                             style="width: 10%;">
+                                            Subir Pago
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Pagado'">
+                                <div class="flex gap-2 justify-center items-center">
+                                    <p class="text-lg font-bold uppercase">Estado: </p>
+                                    <p class="text-center text-lg uppercase p-1 rounded-lg text-white bg-green-500">Despacho Pagado</p>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'Para  por el Cliente'">
+                                <div class="flex gap-2 justify-center items-center">
+                                    <p class="text-lg font-bold uppercase">Estado: </p>
+                                    <p class="text-center text-lg uppercase p-1 rounded-lg text-white bg-orange-500">Verificando Pago</p>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngSwitchDefault>
+                                <div class="flex gap-2 justify-center items-center">
+                                    <p class="text-lg font-bold uppercase">Estado: </p>
+                                    <p class="text-center text-lg uppercase p-1 rounded-lg text-white bg-orange-500">Aprobación curso...</p>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div id="contenedorCentrado">
+
+                            <div id="sidebar2" *ngFor="let guia of ultimaguia">
+                                <div class="Table">
+                                    <div class="Title">
+                                        <p> Guia # {{guia.guide || 0}}</p>
+                                        <p> Fecha {{guia.date | date }}</p>
+                                    </div>
+                                    <div class="Heading">
+                                        <div class="Cell">
+                                            <p>Detalle</p>
+                                        </div>
+                                        <div class="Cell">
+                                            <p style="width: max-content;">Cantidad (m2)</p>
+                                        </div>
+                                        <div class="Cell">
+                                            <p>Valor</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="Row" *ngFor="let prueba of guia.enviado">
+                                        <div class="Cell">
+                                            <p>{{prueba.descripcion}}</p>
+                                        </div>
+                                        <div class="Cell">
+                                            <p>{{prueba.cantidad | number}}</p>
+                                        </div>
+                                        <div class="Cell">
+                                            <p>{{prueba.total | currency}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                <!-- </div> -->
+                <br>
+                <div class=" mat-elevation-z8">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" style="
+                    text-align: center;
+                    padding-top: 24px;
+                    padding-right: 24px;
+                    padding-left: 10%;">
+                        <p style="
+                        width: 90%;
+                    " class="text-lg font-medium tracking-tight leading-6 truncate ">PEDIDO RESTANTE</p>
+                    </div>
+
+                    <div id="contenedorCentrado">
+
+                        <div id="sidebar2" *ngFor="let guia of ultimaguia">
+                            <div class="Table">
+                                <div class="Title">
+                                    <p> Guia # {{guia.guide || 0}}</p>
+                                    <p> Fecha {{guia.date | date }}</p>
+                                </div>
+                                <div class="Heading">
+                                    <div class="Cell">
+                                        <p>Detalle</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p style="width: max-content;">Cantidad (m2)</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>Valor</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of guia.porEnviar">
+                                    <div class="Cell">
+                                        <p>{{prueba.descripcion}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.cantidad | number}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.total | currency}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class=" mat-elevation-z8">
+
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate pl-[24px] w-full"
+                        style="text-align: center;">
+                        <p>ESTADO DE CUENTA PROYECTO {{ pedido.proyecto }}</p>
+                    </div>
+
+
+                    <div id="contenedorCentrado">
+
+                        <div id="sidebar2" *ngFor="let guia of ultimaguia">
+                            <div class="Table">
+                                <!--<div class="Title">
+                                <p> Guia # {{guia.guide}}</p>
+                                <p> Fecha {{guia.date | date }}</p>
+                            </div>-->
+                                <div class="Heading">
+                                    <div class="Cell">
+                                        <p>Modulo 1 - ETAPA II</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p style="width: max-content;">Facturas</p>
+                                    </div>
+                                </div>
+
+                                <div class="Row" *ngFor="let prueba of guia.detalle">
+                                    <div class="Cell">
+                                        <p>{{prueba.detalle}}</p>
+                                    </div>
+                                    <div class="Cell">
+                                        <p>{{prueba.cantidad | number}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <ng-template #elseBlock>
+                <p class="text-lg text-white text-center uppercase bg-yellow-500 p-2">Sin despachos aún genera uno</p>
+            </ng-template>
+            <br>
+            <!-- <div *ngIf="ultimaguia.length === 1">
+                <p class="text-lg text-white text-center uppercase bg-yellow-500 p-2">Sin despachos aún genera uno</p>
+            </div> -->
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Products list -->
+        <!--<div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+            style="overflow: auto !important;">
+            <div class=" mat-elevation-z8">
+
+                 <table mat-table [dataSource]="proyectos$" class="overflow-y-visible">
+
+                     <ng-container matColumnDef="pedido" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Pedido
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <span class="flex items-center">
+                                 {{budget.send}}
+                             </span>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="modulo" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Modulo
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <span class="flex items-center">
+                                 {{budget.module}}
+                             </span>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="estatus" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Estado
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <span class="flex items-center">
+                                 <span class="flex items-center">
+                                     {{budget.estado}}
+                                 </span>
+                             </span>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="despachado" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Despachado
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <div *ngFor="let item of budget.despachado" style="
+                             border-bottom: 1px solid;
+                         ">
+                                 <span class="flex items-center">
+                                     {{item.name}}
+                                 </span>
+                                 <span class="flex items-center">
+                                     {{item.cantidad}}
+                                 </span>
+                             </div>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="porDespachar" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Por Despachar
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <div *ngFor="let item of budget.porDespachar" style="
+                             border-bottom: 1px solid;
+                         ">
+                                 <span class="flex items-center">
+                                     {{item.name}}
+                                 </span>
+                                 <span class="flex items-center">
+                                     {{item.cantidad}}
+                                 </span>
+                             </div>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="guia" sticky>
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;padding-left: 10px !important;">
+                             Saldo
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1;">
+                             <span class="flex items-center">
+
+                                 {{budget.saldo}}
+                             </span>
+                         </td>
+                     </ng-container>
+
+
+                     <ng-container matColumnDef="accion">
+                         <th *matHeaderCellDef mat-header-cell style="z-index: 1;text-align: center; !important;">
+                             ACCIONES
+                         </th>
+                         <td *matCellDef="let budget" mat-cell style="z-index: 1; text-align: center;">
+                             <button matTooltip="Ver Darsboard" (click)="OpenDashboard(budget)">
+                                 <mat-icon [svgIcon]="'heroicons_solid:chart-pie'"
+                                     class="icon-size-5 content-center"></mat-icon>
+                             </button>
+                             <button  matTooltip="Agregar">
+                                     <mat-icon [svgIcon]="'heroicons_solid:plus'"
+                                         class="icon-size-5 content-center"></mat-icon>
+                                 </button>
+                                 <button  matTooltip="Agregar">
+                                     <mat-icon [svgIcon]="'heroicons_solid:plus'"
+                                         class="icon-size-5 content-center"></mat-icon>
+                                 </button>
+                         </td>
+                     </ng-container>
+
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                 </table>
+                 <mat-paginator #paginator [pageSizeOptions]="[ 10, 25, 100]"
+                     aria-label="Select page of users"></mat-paginator>
+
+
+            </div>
+
+
+        </div>-->
+
+    </div>
+
+</div>

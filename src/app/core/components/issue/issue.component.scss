@@ -1,0 +1,60 @@
+.issue-card {
+  background-color: cornflowerblue;
+  opacity: 1;
+  background-size: 40px 40px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #131410 0,
+    #131410 4px,
+    #000000 0,
+    #000000 50%
+  );
+  background-blend-mode: difference;
+}
+
+.status-normal {
+  background-color: cornflowerblue;
+  opacity: 1;
+  background-size: 40px 40px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #131410 0,
+    #131410 4px,
+    #000000 0,
+    #000000 50%
+  );
+  background-blend-mode: difference;
+  font-size: small;
+}
+
+.card-header {
+  font-size: small;
+  font-weight: bold;
+  background-color: #000000;
+  color: whitesmoke;
+}
+
+p {
+  font-size: smaller;
+  line-height: 5px;
+}
+
+.table-requirements {
+  width: 100%;
+}
+
+.table-requirements .item-text-first {
+  width: 10%;
+}
+
+.table-requirements .item-text-second {
+  width: 30%;
+}
+
+.table-requirements .item-text-third {
+  width: 15%;
+}
+
+.table-requirements .item-component {
+  width: 45%;
+}

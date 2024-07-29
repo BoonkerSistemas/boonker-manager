@@ -1,0 +1,117 @@
+<nav class="navbar navbar-expand-lg header-container shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <svg
+        width="165"
+        height="62"
+        viewBox="0 0 165 62"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_322_52)">
+          <path
+            d="M162.814 53.7321H126.63V61.9976H162.814V53.7321Z"
+            fill="white"
+          />
+          <path
+            d="M19.6539 24.7991H13.2542C10.6435 24.7991 9.27632 23.668 9.27632 22.0696C9.27632 19.7257 11.1101 18.5993 17.2998 18.5993C25.7339 18.5993 32.9244 20.6651 32.9244 20.6651V12.3996C32.9244 12.3996 25.9322 10.3337 17.2998 10.3337C8.12145 10.3337 0 13.1357 0 22.0696C0 29.6879 6.21299 33.067 13.5085 33.067H18.8653C22.5259 33.067 25.8458 33.9013 25.8458 37.1776C25.8458 40.6666 22.0989 41.3349 17.2998 41.3349C8.34309 41.3349 1.27853 37.7922 1.27853 37.7922V46.649C1.27853 46.649 7.5965 49.6028 17.2998 49.6028C28.1369 49.6028 35.1875 46.0648 35.1875 36.8177C35.1875 28.2507 28.7039 24.8038 19.6539 24.8038V24.7991Z"
+            fill="white"
+          />
+          <path
+            d="M58.7866 10.3337C47.5855 10.3337 38.4702 19.1415 38.4702 29.9659C38.4702 40.7904 47.5832 49.5981 58.7866 49.5981C69.9901 49.5981 79.1031 40.7904 79.1031 29.9659C79.1031 19.1415 69.9901 10.3337 58.7866 10.3337V10.3337ZM58.7866 40.9587C52.7369 40.9587 47.8141 36.0278 47.8141 29.9683C47.8141 23.9087 52.7369 18.9779 58.7866 18.9779C64.8363 18.9779 69.7614 23.9087 69.7614 29.9683C69.7614 36.0278 64.8386 40.9587 58.7866 40.9587Z"
+            fill="white"
+          />
+          <path
+            d="M144.686 10.3337C133.485 10.3337 124.369 19.1415 124.369 29.9659C124.369 40.7904 133.482 49.5981 144.686 49.5981C155.889 49.5981 165.002 40.7904 165.002 29.9659C165.002 19.1415 155.889 10.3337 144.686 10.3337V10.3337ZM144.686 40.9587C138.636 40.9587 133.713 36.0278 133.713 29.9683C133.713 23.9087 138.636 18.9779 144.686 18.9779C150.736 18.9779 155.661 23.9087 155.661 29.9683C155.661 36.0278 150.738 40.9587 144.686 40.9587Z"
+            fill="white"
+          />
+          <path
+            d="M106.276 10.3337C102.054 10.3337 96.3375 12.4042 92.7072 15.4725V0H83.6595V49.084H92.7072V24.7991C95.7846 21.9387 99.8558 18.9755 105.504 18.9755C110.579 18.9755 110.8 21.878 110.8 25.0374V49.0817H119.846V24.4205C119.846 15.4094 115.322 10.3337 106.276 10.3337V10.3337Z"
+            fill="white"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_322_52">
+            <rect width="165" height="62" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            ><i class="icon-home"></i> Inicio</a
+          >
+        </li>
+        <li *ngIf="user" class="nav-item">
+          <a class="nav-link" routerLink="/new-issue"
+            ><i class="icon-check"></i> Nuevo requerimiento</a
+          >
+        </li>
+        <li *ngIf="user" class="nav-item">
+          <a class="nav-link" routerLink="/administration-signatures"
+            ><i class="icon-picture"></i> Administración Firmass</a
+          >
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            *ngIf="user"
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              class="rounded"
+              src="{{ user.photoURL }}"
+              alt=""
+              width="36"
+              height="36"
+            />
+            {{ user.displayName }}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#">{{ user?.email }}</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="px-2">
+              <button
+                (click)="logout()"
+                type="button"
+                class="btn btn-outline-secondary"
+              >
+                <i class="icon-signout"></i> Cerrar sesión
+              </button>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="!user" class="nav-item d-flex">
+          <button
+            routerLink="/login"
+            type="button btn-primary btn btn-block"
+            class="btn btn-secondary my-2"
+          >
+            Iniciar sesión
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

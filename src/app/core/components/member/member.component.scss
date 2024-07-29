@@ -1,0 +1,24 @@
+.member-card {
+  background-color: cornflowerblue;
+  opacity: 1;
+  background-size: 40px 40px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #131410 0,
+    #131410 4px,
+    #000000 0,
+    #000000 50%
+  );
+  background-blend-mode: difference;
+  height: 110px;
+}
+
+.member-card {
+  color: #c4ff00;
+  font-weight: 500;
+}
+
+.text-muted {
+  color: white !important;
+  text-decoration: solid;
+}

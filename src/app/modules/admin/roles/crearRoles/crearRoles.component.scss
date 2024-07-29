@@ -1,0 +1,77 @@
+.example-containerRol {
+  width: 100%;
+  max-width: 100%;
+  height: 350px;
+  max-height: 350px;
+  overflow: auto
+}
+
+.swal2-container.swal2-center {
+  align-items: center;
+  position: absolute;
+  z-index: 9999999 !important;
+}
+
+/* Estilo del área del input[file] */
+.drag-drop {
+  height: 8em;
+  width: 8em;
+  background-color: #ccc;
+  border-radius: 4em;
+  text-align: center;
+  color: white;
+  position: relative;
+  margin: 0 auto 1em;
+}
+
+.drag-drop span.desc {
+  display: block;
+  font-size: .7em;
+  padding: 0 .5em;
+  color: #000;
+}
+
+input[type="file"] {
+  height: 10em;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+/* Estilo del área del input[file] con :hover */
+
+.drag-drop:hover, input[type="file"]:hover {
+  background-color: #4f46e5;;
+  cursor: pointer;
+}
+
+.drag-drop:hover span.desc {
+  color: #fff;
+}
+
+/* Composición del icono de Upload con FontAwesome */
+.fa-stack {width: 100%;
+  margin-top: 1.5rem;
+}
+
+.fa-stack .top {
+  color: white;
+}
+
+.fa-stack .medium {
+  color: black;
+  text-shadow: 0 0 .25em #666;
+}
+
+.fa-stack .bottom {
+  color: rgba(225, 225, 225, .75);
+}
+
+
+.preview {
+  max-width: 200px;
+}
+

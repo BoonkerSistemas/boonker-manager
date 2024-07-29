@@ -1,0 +1,217 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Ordenes de Pedido</div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64" style="width: 100%;">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput (keyup)="applyFilter($event)" [autocomplete]="'on'" [placeholder]="'Buscar Proyecto'"
+                    #input>
+            </mat-form-field>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden" style="overflow: auto !important;">
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+            style="overflow: auto !important;">
+
+
+
+            <div class=" mat-elevation-z8" style="width: 100%;height: 100%;">
+                <div class="container" *ngFor="let project of proyectosDtos.module; trackBy: trackByFn">
+
+                    <div class="Cliente">
+                        <h1 style="border: none;font-weight: 800;">CLIENTE</h1>
+                    </div>
+                    <div class="Proyecto">
+                        <h1 style="border: none;font-weight: 800;">PROYECTO</h1>
+                    </div>
+                    <div class="M2">
+                        <h1 style="border: none;font-weight: 800;">M2</h1>
+                    </div>
+                    <div class="CodigoModulo">
+                        <h1 style="border: none;font-weight: 800;">CODIGO DE MODULO</h1>
+                    </div>
+                    <div class="Ubicacion">
+                        <h1 style="border: none;font-weight: 800;">TOTAL ORDEN DE PEDIDO </h1>
+                    </div>
+                    <div class="Estado">
+                        <h1 style="border: none;font-weight: 800;">ESTADO</h1>
+                    </div>
+
+                    <div class="Nuevo">
+                        <h1 style="border: none;font-weight: 800;">ACCIONES</h1>
+                    </div>
+
+                    <div class="Borde">
+                        <div style="
+                            height: 15px;
+                        "></div>
+                    </div>
+
+                    <div class="DataCliente">
+                        <h2 style="border: none;font-weight: 600;">{{proyectosDtos?.ruc.name}}   {{proyectosDtos?.ruc.lastName}}</h2>
+                    </div>
+                    <div class="DataProyecto">
+                        <div id="contenedor">
+                            <div id="principal">
+                                <h2 style="border: none;font-weight: 600;">NOMBRE</h2>
+                            </div>
+                            <div id="sidebar">
+                                <p>{{proyectosDtos?.name}}</p>
+                            </div>
+                        </div>
+                        <div id="contenedor1">
+                            <div id="principal1">
+                                <h2 style="border: none;font-weight: 600;">TIPOLOGIA</h2>
+                            </div>
+                            <div id="sidebar1">
+                                <p>{{proyectosDtos?.type}}</p>
+                            </div>
+                        </div>
+                        <div id="contenedor2">
+                            <div id="principal2">
+                                <h2 style="border: none;font-weight: 600;">MODULO DE CONSTRUCCIÓN</h2>
+                            </div>
+                            <div id="sidebar2">
+                                <p>{{project?.module}}</p>
+                            </div>
+                        </div>
+                        <div id="contenedor3">
+                            <div id="principal3">
+                                <h2 style="border: none;font-weight: 600;">CANTIDAD MODULOS</h2>
+                            </div>
+                            <div id="sidebar3">
+                                <p>{{proyectosDtos?.modules}}</p>
+                            </div>
+                        </div>
+                        <div id="contenedor4">
+                            <div id="principal4">
+                                <h2 style="border: none;font-weight: 600;">UBICACION</h2>
+                            </div>
+                            <div id="sidebar5">
+                                <p *ngIf="project">{{proyectosDtos?.location || 'S/U'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: contents;">
+                        <div class="DataCodigo">
+
+                            <div *ngFor="let a of project.purchaseOrder[0]" style="
+                            width: 100%;
+                            border-bottom: 1px solid;
+                            border-bottom-style: dashed;
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            align-content: center;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+                        ">
+                                <h2 style="border: none;font-weight: 600;">{{a.section[0].titulo}}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="DataM2">
+                            <div *ngFor="let a of project.purchaseOrder[0]" style="
+                            width: 100%;
+                            border-bottom: 1px solid;
+                            border-bottom-style: dashed;
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            align-content: center;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+                        ">
+                                <h2 style="border: none;font-weight: 600;">{{(a.section[0].calculo2)}} </h2>
+                            </div>
+                        </div>
+                        <div class="DataUbicacion">
+                            <div *ngFor="let a of project.purchaseOrder[0]; let i = index" style="
+                            width: 100%;
+                            border-bottom: 1px solid;
+                            border-bottom-style: dashed;
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            align-content: center;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+                        ">
+                                <h2 style="border: none;font-weight: 600;" [hidden]="a.op">
+                                    {{a.section[0].totalPedido}}
+                                </h2>
+
+                            </div>
+                        </div>
+                        <div class="DataEstado">
+                            <div *ngFor="let a of project.purchaseOrder[0]" style="
+                            width: 100%;
+                            border-bottom: 1px solid;
+                            border-bottom-style: dashed;
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            align-content: center;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+                        ">
+                                <h2 style="border: none;font-weight: 600;">
+                                    {{a.status}}
+
+
+                                    <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                                            [routerLink]="['/detallesMateriales',a._id]"
+                                            style="background: #00ffff00;color: #4f46e5;">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                                        <span class="hidden sm:inline-block ml-2">Generar pedido</span>
+                                    </button>
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+                        <div class="DataNuevo">
+
+                            <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                                (click)="addNewOrdenPedido(project._id)"
+                                style="background: #00ffff00;color: #4f46e5;">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                                <span class="hidden sm:inline-block ml-2">Nueva Orden Pedido</span>
+                            </button>
+
+                            <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                                    (click)="deleteOrden(project._id)"
+                                    style="background: #00ffff00;color: #4f46e5;">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                                <span class="hidden sm:inline-block ml-2">Eliminar Orden de pedido</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,154 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-[#009BDB] dark">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%"
+            preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center">
+            <h1 class="text-[24px] font-semibold center">Hola! {{namePerson.name}}.</h1>
+            <h2 class="text-xl font-semibold">Gracias por usar las Soluciones Estructurales Boonker</h2>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto p-6 sm:p-10">
+
+        <div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
+
+            <ng-container *ngIf="this.filteredCourses.length; else noCourses">
+                <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-8 mt-8 sm:mt-10">
+                    <ng-container *ngFor="let course of filteredCourses; trackBy: trackByFn">
+                        <!-- Course -->
+                        <div class="flex flex-col  shadow rounded-2xl overflow-hidden bg-card">
+                            <div class="flex flex-col p-6" >
+                                <div class="flex items-center justify-between">
+                                    <!-- Course category -->
+                                    <ng-container *ngIf="course.status">
+                                        <div class="py-0.5 px-3 rounded-full text-sm font-semibold"
+                                            [ngClass]="{'text-blue-800 bg-blue-100 dark:text-blue-50 dark:bg-blue-500': course.status === 'En Construcción',
+                                                        'text-green-800 bg-green-100 dark:text-green-50 dark:bg-green-500': course.status === 'Finalizado',
+                                                        'text-amber-800 bg-amber-100 dark:text-amber-50 dark:bg-amber-500': course.status === 'Próximo a Iniciar'}">
+                                            {{course.status}}
+                                        </div>
+                                    </ng-container>
+                                    <!-- Completed at least once -->
+                                    <div class="flex items-center">
+                                    </div>
+                                </div>
+                                <!-- Course title & description -->
+                                <img onerror="this.onerror=null;this.src='../assets/images/avatars/render.png';"[src]="course.picture" class="h-75">
+                                <div class="mt-4 text-lg font-medium">{{course.type}}</div>
+                                <div class="mt-0.5 line-clamp-2 text-secondary"><b>Proyecto:</b> {{course.name}} </div>
+                                <div class="mt-0.5 line-clamp-2 text-secondary"><b>Unidades de Vivienda:</b>
+                                    {{course.unidades}} </div>
+                                <div class="w-12  my-6 border-t-2"></div>
+
+                            </div>
+                            <!-- Footer -->
+                            <div class="flex flex-col w-full mt-auto">
+                                <!-- Course progress -->
+                                <div class="relative h-0.5">
+                                    <div class="z-10 absolute inset-x-0 -mt-3" [matTooltip]="1 | percent"
+                                        [matTooltipPosition]="'above'" [matTooltipClass]="'-mb-0.5'"></div>
+                                    <mat-progress-bar class="h-0.5" [value]="(100 * 1 / 1)"></mat-progress-bar>
+                                </div>
+
+                                <!-- Course launch button -->
+                                <div class="px-6 py-4 text-right bg-gray-50 dark:bg-transparent">
+                                    <div class="grid grid-cols-2 justify-center items-center gap-2" >
+                                        <div class="">
+                                            <button mat-stroked-button [routerLink]="['./setting/', course._id]" class="content-center px-2"
+                                                matTooltip="Editar" style="margin-right: 5px;">
+                                                <p class="w-[145px] mr-1 text-xs font-semibold uppercase">Visualizar</p>
+                                                <mat-icon class="ml-1.5 icon-size-5">visibility</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="flex justify-start">
+                                            <button mat-stroked-button class="content-center px-2" [routerLink]="['/cliente-despachos/lista/', course._id]"
+                                                matTooltip="Orden de Pedido" style="margin-right: 5px;">
+                                                <p class="w-[145px] mr-1 text-xs font-semibold uppercase">Nota de despacho</p>
+                                                <mat-icon class="ml-1.5 icon-size-5" [svgIcon]="'heroicons_solid:home-modern'"></mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="">
+                                            <button mat-stroked-button class="content-center px-2"
+                                                [routerLink]="['/cliente-despachos/lista-despachos/', course._id]" matTooltip="Despachos"
+                                                style="margin-right: 5px;">
+                                                <p class="w-[145px] ml-1 text-xs font-semibold uppercase">Generar nota de despacho</p>
+                                                <mat-icon class="ml-1.5 icon-size-5" [svgIcon]="'heroicons_solid:truck'"></mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="flex justify-start">
+                                            <button mat-stroked-button class="content-center px-2" [routerLink]="['./visita-obra/', course._id]"
+                                                matTooltip="Informes de Visita" style="margin-right: 5px;">
+                                                <p class="w-[145px] ml-1 text-xs font-semibold uppercase">Revisar informes de visita</p>
+                                                <mat-icon class="ml-1.5 icon-size-5" [svgIcon]="'heroicons_solid:information-circle'"></mat-icon>
+                                            </button>
+                                        </div>
+                                        <!-- <div class="">
+                                            <button mat-stroked-button class="content-center px-2"
+                                                (click)="eliminarProyecto(course)" matTooltip="Eliminar Proyecto"
+                                                style="margin-right: 5px;"
+                                                *ngIf="typeRolUser === 'SERVICIO AL CLIENTE'">
+                                                <p class="w-[145px] ml-1 text-white text-xs font-semibold uppercase">Eliminar proyecto</p>
+                                                <mat-icon class="ml-1.5 text-white icon-size-5"
+                                                    [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                                            </button>
+                                        </div> -->
+                                    </div>
+                                    <!-- <button mat-stroked-button [routerLink]="['./crear-proyecto/', course._id]"
+                                        class="content-center px-2" matTooltip="Editar" style="margin-right: 5px;">
+                                        <mat-icon class="ml-1.5 icon-size-5"
+                                            [svgIcon]="'heroicons_solid:pencil-square'"></mat-icon>
+                                    </button>
+
+                                    <button mat-stroked-button class="content-center px-2"
+                                        [routerLink]="['/cliente-despachos/lista/', course._id]"
+                                        matTooltip="Orden de Pedido" style="margin-right: 5px;">
+                                        <mat-icon class="ml-1.5 icon-size-5"
+                                            [svgIcon]="'heroicons_solid:home-modern'"></mat-icon> Ver Ordén de Pedido
+                                    </button>
+
+                                    <button mat-stroked-button class="content-center px-2 w-[80px]"
+                                        [routerLink]="['/cliente-despachos/lista-despachos/', course._id]"
+                                        matTooltip="Despachos" style="margin-right: 5px;">
+                                        <mat-icon class="ml-1.5 icon-size-5"
+                                            [svgIcon]="'heroicons_solid:truck'"></mat-icon> Generar Despacho
+                                    </button>
+
+                                    <button mat-stroked-button class="content-center px-2 w-[80px]"
+                                        [routerLink]="['./visita-obra/', course._id]" matTooltip="Informes de Visita"
+                                        style="margin-right: 5px;">
+                                        <mat-icon class="ml-1.5 icon-size-5"
+                                            [svgIcon]="'heroicons_solid:information-circle'"></mat-icon> Informes de Visita
+                                    </button> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <!-- No courses -->
+            <ng-template #noCourses>
+                <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                    <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:document-search'"></mat-icon>
+                    <div class="mt-6 text-2xl font-semibold tracking-tight text-secondary">No se encontro ninguna casa
+                        ni proyecto asigando a tu cuenta!</div>
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+
+</div>

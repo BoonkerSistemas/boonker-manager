@@ -1,0 +1,322 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6" style="
+height: 90vh !important; width: 100vh !important;
+">
+    <div class="text-2xl font-extrabold tracking-tight text-center" style="
+    padding: 20px 10px 0px 10px;
+">
+        NUEVA ORDEN DE PEDIDO
+    </div>
+    <div style="padding-left: 95%">
+        <button (click)="onNoClick()" class=" bg-white text-black btn-sm btn-circle btn-ghost absolute ">
+            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM15.36 14.3C15.65 14.59 15.65 15.07 15.36 15.36C15.21 15.51 15.02 15.58 14.83 15.58C14.64 15.58 14.45 15.51 14.3 15.36L12 13.06L9.7 15.36C9.55 15.51 9.36 15.58 9.17 15.58C8.98 15.58 8.79 15.51 8.64 15.36C8.35 15.07 8.35 14.59 8.64 14.3L10.94 12L8.64 9.7C8.35 9.41 8.35 8.93 8.64 8.64C8.93 8.35 9.41 8.35 9.7 8.64L12 10.94L14.3 8.64C14.59 8.35 15.07 8.35 15.36 8.64C15.65 8.93 15.65 9.41 15.36 9.7L13.06 12L15.36 14.3Z"
+                    fill="#1B1B1D" />
+            </svg>
+        </button>
+    </div>
+    <ng-container >
+
+        <div class="m-4" style="
+        margin-top: 0px !important;
+    ">
+            <div class="grid sm:grid-cols-6 gap-6 w-full mt-8"
+                style="background: #333f4f;padding: 5px;border-radius: 6px;margin-top: 10px !important;gap: 0.5rem !important;">
+                <div class="sm:col-span-3">
+
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Cliente</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl" [(ngModel)]="pedidoAux.client"
+                            disabled>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Proyecto</mat-label>
+
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl"
+                            [(ngModel)]="pedidoAux.proyecto" disabled>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Codigo Unico</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl" [placeholder]="Math.floor(Math.random() * 100)"
+                            [(ngModel)]="pedidoAux.codigo" disabled>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label class="text-color">Modulo de Construccion</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl" [placeholder]="'Modulo Construccion'"
+                            [(ngModel)]="pedidoAux.moduloConstruccion">
+                    </mat-form-field>
+                </div>
+
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Codigo</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl" [placeholder]="'Codigo Cliente'"
+                            [(ngModel)]="pedidoAux.codigoCliente">
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Orden pedido</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput class="w-full p-2 text-2xl" [placeholder]="'Orden Pedido'"
+                            [(ngModel)]="pedidoAux.ordenPedido">
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label class="text-color">Revestimiento</mat-label>
+                        <mat-select matInput class="w-full p-2 text-2xl" [(ngModel)]="pedidoAux.revestimiento">
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Nº Secciones</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput type="number" class="w-full p-2 text-2xl" [placeholder]="'Nº Secciones'"
+                            [(ngModel)]="pedidoAux.secciones">
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <mat-form-field class="fuse-mat-no-subscript w-full ">
+                        <mat-label class="text-color">Descuento</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'" matPrefix></mat-icon>
+                        <input matInput type="number" class="w-full p-2 text-2xl" [placeholder]="'% de descuento'"
+                               [(ngModel)]="pedidoAux.descuento">
+                    </mat-form-field>
+                </div>
+
+                <div style="display: flex;justify-content: center;padding: 10px 0px; " class="sm:col-span-6">
+                    <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                        (click)="addFrm(pedidoAux)" style="background: #00ffff00;color: #ffffff;">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                        <span class="hidden sm:inline-block ml-2">Generar Secciones Cuantificacion</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div *ngFor="let item of items; let i = index;">
+                <br>
+                <div class="grid sm:grid-cols-6 gap-6 w-full mt-8"
+                    style="padding: 5px;border-radius: 6px; border: 3px solid black;margin-top: 0px !important;">
+
+                    <div class="sm:col-span-6 text-2xl font-extrabold tracking-tight text-center"
+                        style="background: red;color: white;">
+                        CUANTIFICACIÓN VOLÚMENES {{item.titulo}}
+                    </div>
+
+                    <div class="grid sm:grid-cols-6 gap-6 w-full mt-8 sm:col-span-6 mat-elevation-z8" style="
+                        padding: 10px;
+                        margin: 0px !important;
+                    ">
+                        <!--INICIO CABECERAS-->
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">DENOMINACION</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">FACTOR</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">MEDICIÓN</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">UNIDAD</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">CALCULO</h1>
+                        </div>
+                        <!--FIN CABECERAS-->
+                        <!--INICIO DATA-->
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.denominacion1}}"
+                                [(ngModel)]="items[i].denominacion1" size="20">
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.factor1}}</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1>{{item.medicion1}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.unidad1}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.calculo1}}"
+                                [(ngModel)]="items[i].calculo1">
+                        </div>
+
+                        <!--OTRO-->
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.denominacion2}}"
+                                [(ngModel)]="items[i].denominacion2" size="20">
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.factor2}}</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1>{{item.medicion2}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.unidad2}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.calculo2}}"
+                                [(ngModel)]="items[i].calculo2">
+                        </div>
+
+                        <!--OTRO-->
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.denominacion3}}"
+                                [(ngModel)]="items[i].denominacion3" size="20">
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.factor3}}</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1>{{item.medicion3}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1>{{item.unidad3}}</h1>
+                        </div>
+                        <div class="sm:col-span-1 centarTexto">
+                            <input matInput class="w-full" type="text" placeholder="{{item.calculo3}}"
+                                [(ngModel)]="items[i].calculo3">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--DESTALLES MATERIALES-->
+                <br>
+                <div class="grid sm:grid-cols-12 gap-6 w-full mt-8"
+                    style="padding: 5px;border-radius: 6px; border: 3px solid black;margin-top: 0px !important;"
+                    *ngIf="item.showDetalles">
+                    <div class="sm:col-span-12 text-2xl font-extrabold tracking-tight text-center" style="
+        background: rgb(0, 0, 0);color: white;">
+                        DETALLE DE MATERIALES BOONKER {{item.titulo}}
+                    </div>
+
+                    <div class="grid sm:grid-cols-12 gap-6 w-full mt-8 sm:col-span-12 mat-elevation-z8" style="
+                        padding: 10px;
+                        margin: 0px !important;
+                    ">
+                        <!--INICIO CABECERAS-->
+                        <div class="sm:col-span-1 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">ORDEN</h1>
+                        </div>
+                        <div class="sm:col-span-3 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">DESCRIPCION</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">UNIDADES</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">CANTIDAD</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">PRECIO</h1>
+                        </div>
+                        <div class="sm:col-span-2 centarTexto">
+                            <h1 style="border: none;font-weight: 800;">TOTAL</h1>
+                        </div>
+                        <!--FIN CABECERAS-->
+                        <!--INICIO DATA-->
+                        <div class="grid sm:grid-cols-12 gap-6 w-full mt-8 sm:col-span-12"
+                            style="margin: 0px !important;" *ngFor="let detalles of item.detalles">
+                            <div class="sm:col-span-1 centarTexto">
+                                <h1>{{detalles.order}}</h1>
+                            </div>
+                            <div class="sm:col-span-3 centarTexto">
+                                <h1>{{detalles.descripcion}}</h1>
+                            </div>
+                            <div class="sm:col-span-2 centarTexto">
+                                <h1>{{detalles.unidades}}</h1>
+                            </div>
+                            <div class="sm:col-span-2 centarTexto">
+                                <h1>{{detalles.cantidad | number:'1.1-2'}}</h1>
+                            </div>
+                            <div class="sm:col-span-2 centarTexto">
+                                <h1>{{detalles.precio}}</h1>
+                            </div>
+                            <div class="sm:col-span-2 centarTexto">
+                                <h1>{{detalles.total | number:'1.1-2'}}</h1>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div style="display: flex;justify-content: center;padding: 10px 0px; " class="sm:col-span-6"
+                *ngIf="items.length>0">
+                <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'" (click)="generar(pedidoAux)"
+                    style="background: #00ffff00;color: #4f46e5;">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                    <span class="hidden sm:inline-block ml-2">Generar detalles de materiales Boonker</span>
+                </button>
+            </div>
+
+
+            <div style="bottom: 7vh;">
+                <!-- Add Actions -->
+                <ng-container *ngIf="!pedidoAux.id">
+                    <div class="flex items-center justify-end mt-4">
+
+                        <button class="ml-4 px-1 sm:px-4 min-w-10" mat-flat-button [color]="'primary'"
+                            (click)="guardarSeccion(pedidoAux)" style="background: #00ffff00;color: #4f46e5;">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="hidden sm:inline-block ml-2"> Guardar y Crear Orden de Pedido</span>
+                        </button>
+                    </div>
+                </ng-container>
+                <!-- Edit Actions -->
+                <ng-container *ngIf="pedidoAux.id">
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center space-x-2">
+                        </div>
+                        <!-- Close -->
+                        <button mat-flat-button (click)="updateNoteDetails(pedidoAux)">
+                            Actualizar
+                        </button>
+                        <button mat-flat-button matDialogClose>
+                            Cerrar
+                        </button>
+                    </div>
+                </ng-container>
+            </div>
+
+        </div>
+    </ng-container>
+</div>

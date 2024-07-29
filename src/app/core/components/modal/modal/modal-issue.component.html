@@ -1,0 +1,222 @@
+<div class="flex flex-row text-orange-700 items-center">
+  <h1 mat-dialog-title class="text-3xl !text-orange">
+    {{ title }}
+    <mat-icon
+      (click)="showVisibleAlert()"
+      svgIcon="heroicons_solid:exclamation"
+      class="cursor-pointer"
+      style="color: rgb(217 119 6) !important"
+    ></mat-icon>
+  </h1>
+</div>
+<!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+
+<div mat-dialog-content class="w-auto">
+  <!-- Warning -->
+  <fuse-alert [type]="'warning'" *ngIf="visibleAlert" @expandCollapse>
+    <span fuseAlertTitle>Puntos importantes a tener en cuenta:</span>
+    <ul>
+      <li>
+        • Este formulario será considerado como el único canal por el cual se
+        tomarán solicitudes a sus necesidades.
+      </li>
+      <li>
+        • Las urgencias, deben ser levantadas con 48hs de anticipación mínimo.
+      </li>
+    </ul>
+  </fuse-alert>
+
+  <form class="flex flex-col" [formGroup]="issue">
+    <mat-form-field>
+      <mat-label
+        >Asunto
+        <div class="icon-tooltip">
+          <mat-icon
+            [matTooltip]="'Indicar breve reseña de tu requerimiento.'"
+            svgIcon="heroicons_solid:question-mark-circle"
+          ></mat-icon>
+        </div>
+      </mat-label>
+      <input
+        matInput
+        (focus)="showVisibleAlert(false)"
+        formControlName="summary"
+      />
+      <mat-error *ngIf="issue.get('summary').invalid"
+        >{{ getMessageError('summary') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label
+        >Fecha término
+        <div class="icon-tooltip">
+          <mat-icon
+            [matTooltip]="
+              'Selecciona fecha estimada de finalización de tu requerimiento.'
+            "
+            svgIcon="heroicons_solid:question-mark-circle"
+          ></mat-icon>
+        </div>
+      </mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [min]="yesterday"
+        formControlName="duedate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="issue.get('duedate').invalid"
+        >{{ getMessageError('duedate') }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-select">
+      <mat-label>Categoria:</mat-label>
+      <mat-select
+        style="width: 100%"
+        placeholder="Categorias"
+        formControlName="category"
+        [(value)]="selectedCategory"
+        (selectionChange)="onSelectionCategoryChange($event)"
+      >
+        <mat-option
+          *ngFor="let category of categoriesList"
+          [value]="category"
+          >{{ category.requerimentType }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <!--<mat-form-field>-->
+    <!--<mat-label-->
+    <!-->Descripción-->
+    <!--<div class="icon-tooltip">-->
+    <!--<mat-icon-->
+    <!--[matTooltip]="'Describe tu requerimiento.'"-->
+    <!--svgIcon="heroicons_solid:question-mark-circle"-->
+    <!-->
+        </mat-icon>-->
+    <!--</div>-->
+    <!--</mat-label>-->
+    <!--<textarea-->
+    <!--class="textarea-content"-->
+    <!--matInput-->
+    <!--(focus)="showVisibleAlert(false)"-->
+    <!--formControlName="content"-->
+    <!-->-->
+    <!--</textarea>-->
+    <!--<mat-error *ngIf="issue.get('content').invalid"-->
+    <!-->{{ getMessageError('content') }}-->
+    <!--</mat-error>-->
+    <!--</mat-form-field>-->
+
+    <div class="mb-2">
+      <app-text-editor-markdown
+        label="Descripción"
+        tooltip="Describe tu requerimiento."
+        [required]="true"
+        [data]="issue.controls['content']"
+        typeView="viewAndEdit"
+        (handleOutHtml)="handleOutHtml($event)"
+      >
+      </app-text-editor-markdown>
+    </div>
+
+    <!--<app-text-editor
+      [isEditing]="true"
+      [control]="issue.controls['content']"
+      label="Descripción"
+      [required]="true"
+    ></app-text-editor>-->
+
+    <mat-form-field appearance="fill">
+      <mat-label>
+        Adjuntar documento(s)
+        <div class="icon-tooltip">
+          <mat-icon
+            [matTooltip]="'Selecciona el(los) documentos a adjuntar al ticket.'"
+            svgIcon="heroicons_solid:question-mark-circle"
+          ></mat-icon>
+        </div>
+      </mat-label>
+
+      <div class="p-4 bg-white rounded-md w-full">
+        <div
+          class="border-dashed border-2 border-gray-400 py-6 flex flex-col"
+          (dragover)="onDragOver($event)"
+          (dragstart)="onDragStart($event)"
+        >
+          <span class="text-center mb-4"
+            >Arrastra y suelta archivo en cualquier lugar del cuadro</span
+          >
+
+          <app-button
+            [stroked]="true"
+            (click)="uploader.click()"
+            class="flex flex-row justify-center items-center"
+          >
+            <mat-icon svgIcon="heroicons_outline:upload"></mat-icon>
+            <span class="ml-1"> Añadir archivo(s) </span>
+          </app-button>
+          <span class="text-center"
+            >Formatos aceptados .doc, .docx, .xls, .xlsx, .pdf</span
+          >
+
+          <input
+            type="text"
+            class="ocultar"
+            readonly
+            matInput
+            formControlName="attach"
+          />
+          <input
+            type="file"
+            multiple
+            hidden
+            #uploader
+            (change)="fileChange($event, 'doc')"
+            accept=".doc,.docx,.xls,.xlsx,.pdf"
+          />
+        </div>
+      </div>
+      <mat-card *ngIf="issue.get('attach').value">
+        <ng-container *ngFor="let item of fileListArray; let i = index">
+          <mat-card-content class="flex flex-1 justify-between">
+            <div class="flex justify-center items-center mr-2">
+              <mat-icon svgIcon="feather:file" class="mr-2"></mat-icon>
+              {{ item.name }}
+            </div>
+          </mat-card-content>
+        </ng-container>
+
+        <button (click)="onClearFile('doc')">
+          <mat-icon svgIcon="mat_outline:close"></mat-icon>
+        </button>
+      </mat-card>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions class="flex w-full justify-between">
+  <button
+    mat-stroked-button
+    (click)="onNoClick()"
+    class="flex flex-1 text-blackscreen"
+  >
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    class="bg-calypsotechy flex flex-1 text-white disabled:text-black disabled:text-opacity-38 disabled:bg-black disabled:bg-opacity-12"
+    [disabled]="issue.invalid"
+    (click)="onGenerate()"
+    cdkFocusInitial
+  >
+    <!--[mat-dialog-close]="data.issue"-->
+    Generar
+  </button>
+</div>

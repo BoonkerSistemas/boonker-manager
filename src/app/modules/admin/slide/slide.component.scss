@@ -1,0 +1,15 @@
+/*.mdc-data-table__cell, .mdc-data-table__header-cell {
+     padding: 0 0px 0 0px !important; 
+}
+.mat-mdc-tab-body.mat-mdc-tab-body-active {
+     position: relative;
+     overflow-x: hidden;
+     overflow-y: auto;
+     z-index: 1;
+     flex-grow: 1;
+     height: 50rem;
+ }
+*/
+.mat-mdc-tab-labels {
+  justify-content: space-around;
+}
